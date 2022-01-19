@@ -209,5 +209,12 @@ namespace interfaceKitDidatico
                 button2.Text = "Ligar Inversor";
             }
         }
+
+        private void click_GerarArquivo(object sender, EventArgs e)
+        {
+            gerarArquivoCSV telagerarArquivoCSV = new gerarArquivoCSV();
+            telagerarArquivoCSV.Show();
+            Enabled = false;
+        }
     }
 }

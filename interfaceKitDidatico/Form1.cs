@@ -26,6 +26,7 @@ namespace interfaceKitDidatico
 
         private void timer1_Tick(object sender, EventArgs e)
         {
+            //serialPort1.Write(buffer, 0, tamanho_palavra);
             try
             {
                 serialPort1.Write(buffer, 0, tamanho_palavra);
@@ -47,6 +48,7 @@ namespace interfaceKitDidatico
                             MessageBox.Show("Erro: Não foi possível reconectar a placa. Tente novamente.");
                         }
                         alerta_aberto = false;
+                        result = 0;
                     }
                 }
             }
@@ -54,7 +56,6 @@ namespace interfaceKitDidatico
 
         private void serialPort1_ErrorReceived(object sender, System.IO.Ports.SerialErrorReceivedEventArgs e)
         {
-            //MessageBox.Show("Error");
         }
 
         private void serialPort1_DataReceived(object sender, System.IO.Ports.SerialDataReceivedEventArgs e)
@@ -69,11 +70,14 @@ namespace interfaceKitDidatico
             }
             
             serialPort1.PortName = comboBox1.Text;
+            
+            
             try 
             {
                 serialPort1.Open();
+                
             }
-            catch (IOException error)
+            catch
             {
                 MessageBox.Show("Erro: Seleção de uma porta serial que não está sendo utilizada. Confira se a placa está conectada ao computador, entre no 'Gerenciado de Dispositivos' e veja em 'Portas (COM e LPT)' qual porta está sendo utilizada na comunicação com a placa.");
             } 
@@ -88,8 +92,9 @@ namespace interfaceKitDidatico
                 try
                 {
                     comunicacao();
+                    comboBox1.Enabled = false;
                 }
-                catch (TimeoutException error)
+                catch
                 {
                     MessageBox.Show("Erro: Seleção da porta serial errada. Confira se a placa está conectada ao computador, entre no 'Gerenciado de Dispositivos' e veja em 'Portas (COM e LPT)' qual porta está sendo utilizada na comunicação com a placa.");
                     break;
@@ -134,6 +139,7 @@ namespace interfaceKitDidatico
             if (contador > tamanho_palavra)
             {
                 textBox9.Text = "Verificacao com sucesso";
+                //comboBox1.
                 timer1.Enabled = true;
                 tela1 tela = new tela1(this,tamanho_palavra);
                 Enabled = false;

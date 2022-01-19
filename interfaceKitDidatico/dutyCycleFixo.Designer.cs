@@ -37,6 +37,7 @@
             this.textBox4 = new System.Windows.Forms.TextBox();
             this.textBox5 = new System.Windows.Forms.TextBox();
             this.button2 = new System.Windows.Forms.Button();
+            this.iniciarVerificacao = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // textBox1
@@ -154,11 +155,22 @@
             this.button2.UseVisualStyleBackColor = false;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
+            // iniciarVerificacao
+            // 
+            this.iniciarVerificacao.Location = new System.Drawing.Point(210, 208);
+            this.iniciarVerificacao.Name = "iniciarVerificacao";
+            this.iniciarVerificacao.Size = new System.Drawing.Size(121, 23);
+            this.iniciarVerificacao.TabIndex = 10;
+            this.iniciarVerificacao.Text = "Gerar Arquivo CSV";
+            this.iniciarVerificacao.UseVisualStyleBackColor = true;
+            this.iniciarVerificacao.Click += new System.EventHandler(this.click_GerarArquivo);
+            // 
             // dutyCycleFixo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(358, 348);
+            this.Controls.Add(this.iniciarVerificacao);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.textBox5);
             this.Controls.Add(this.textBox4);
@@ -187,5 +199,6 @@
         private System.Windows.Forms.TextBox textBox4;
         private System.Windows.Forms.TextBox textBox5;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button iniciarVerificacao;
     }
 }
