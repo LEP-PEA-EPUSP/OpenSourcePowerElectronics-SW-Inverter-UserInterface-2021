@@ -16,6 +16,7 @@ namespace interfaceKitDidatico
        
         int contador=0;
         int tamanho_palavra = 10;
+        int numeroExp = 0;
         bool alerta_aberto = false;
         public static byte[] buffer = new byte[10];
         public PaginaInicial()
@@ -51,6 +52,30 @@ namespace interfaceKitDidatico
                         result = 0;
                     }
                 }
+            }
+
+            //Abertura de experimento
+            if (numeroExp == 1)
+            {
+                MessageBox.Show("Erro: Esse experimento ainda não existe");
+                numeroExp = 0;
+            }
+            else if (numeroExp == 2)
+            {
+                Experimento2 tela = new Experimento2(this, tamanho_palavra);
+                tela.Show();
+                Enabled = false;
+                numeroExp = 0;
+            }
+            else if (numeroExp == 3)
+            {
+                MessageBox.Show("Erro: Esse experimento ainda não existe");
+                numeroExp = 0;
+            }
+            else if (numeroExp != 0)
+            {
+                MessageBox.Show("Erro: Selecione um experimento válido");
+                numeroExp = 0;
             }
         }
 
@@ -140,22 +165,29 @@ namespace interfaceKitDidatico
             {
                 textBox9.Text = "Verificacao com sucesso";
                 //comboBox1.
-                timer1.Enabled = true;
-                tela1 tela = new tela1(this,tamanho_palavra);
-                Enabled = false;
-                tela.Show();
+                comboBox2.Enabled = true;
                 contador = 0;
             }
-        }
-
-        private void textBox4_TextChanged(object sender, EventArgs e)
-        {
-
         }
 
         private void PaginaInicial_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void escolhaExperimento(object sender, EventArgs e)
+        {
+            if (comboBox2 != null) button1.Enabled = true;
+            else button1.Enabled = false;
+        }
+
+        private void next_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(comboBox2.Text) == false)
+            {
+                numeroExp = Convert.ToInt32(comboBox2.Text);
+                timer1.Enabled = true;
+            }
         }
     }
 }

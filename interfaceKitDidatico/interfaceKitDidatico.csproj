@@ -59,6 +59,12 @@
     <Compile Include="dutyCycleFixo.Designer.cs">
       <DependentUpon>dutyCycleFixo.cs</DependentUpon>
     </Compile>
+    <Compile Include="Experimento2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Experimento2.Designer.cs">
+      <DependentUpon>Experimento2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -96,6 +102,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="dutyCycleFixo.resx">
       <DependentUpon>dutyCycleFixo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Experimento2.resx">
+      <DependentUpon>Experimento2.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>

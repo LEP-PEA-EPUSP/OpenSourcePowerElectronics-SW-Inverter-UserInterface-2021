@@ -13,6 +13,8 @@ namespace interfaceKitDidatico
 {
     public partial class gerarArquivoCSV : Form
     {
+        string nomeArquivo;
+        
         public gerarArquivoCSV()
         {
             InitializeComponent();
@@ -46,6 +48,10 @@ namespace interfaceKitDidatico
                 File.AppendAllText(path, appendText);
                 n++;
             }
+        }
+
+        private void textBox1_Click(object sender, EventArgs e)
+        {
         }
     }
 }

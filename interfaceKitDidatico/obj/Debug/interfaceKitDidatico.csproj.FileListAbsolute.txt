@@ -85,3 +85,4 @@ C:\Users\rebec\Projetos\IHM\interfaceKitDidatico\obj\Debug\interfaceKitDidatico.
 C:\Users\rebec\Projetos\IHM\interfaceKitDidatico\obj\Debug\interfaceKitDidatico.csproj.CoreCompileInputs.cache
 C:\Users\rebec\Projetos\IHM\interfaceKitDidatico\obj\Debug\interfaceKitDidatico.exe
 C:\Users\rebec\Projetos\IHM\interfaceKitDidatico\obj\Debug\interfaceKitDidatico.pdb
+C:\Users\rebec\Projetos\IHM\interfaceKitDidatico\obj\Debug\interfaceKitDidatico.Experimento2.resources
