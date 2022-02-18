@@ -13,6 +13,8 @@ namespace interfaceKitDidatico
 {
     public partial class gerarArquivoCSV : Form
     {
+        private Experimento2 parent;
+        public int tamanho_palavra;
         string nomeArquivo;
         
         public gerarArquivoCSV()

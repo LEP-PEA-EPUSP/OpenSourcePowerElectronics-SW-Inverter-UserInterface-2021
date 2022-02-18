@@ -43,6 +43,7 @@
             this.buttonFinalizar = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.buttonVoltar = new System.Windows.Forms.Button();
+            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             titleE2 = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -161,17 +162,19 @@
             // 
             // buttonLiga
             // 
+            this.buttonLiga.BackColor = System.Drawing.Color.LightGreen;
             this.buttonLiga.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonLiga.Location = new System.Drawing.Point(25, 29);
             this.buttonLiga.Name = "buttonLiga";
             this.buttonLiga.Size = new System.Drawing.Size(100, 41);
             this.buttonLiga.TabIndex = 4;
             this.buttonLiga.Text = "Liga";
-            this.buttonLiga.UseVisualStyleBackColor = true;
+            this.buttonLiga.UseVisualStyleBackColor = false;
             this.buttonLiga.Click += new System.EventHandler(this.liga_Click);
             // 
             // buttonDesliga
             // 
+            this.buttonDesliga.BackColor = System.Drawing.Color.Salmon;
             this.buttonDesliga.Enabled = false;
             this.buttonDesliga.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonDesliga.Location = new System.Drawing.Point(150, 29);
@@ -179,7 +182,7 @@
             this.buttonDesliga.Size = new System.Drawing.Size(100, 41);
             this.buttonDesliga.TabIndex = 5;
             this.buttonDesliga.Text = "Desliga";
-            this.buttonDesliga.UseVisualStyleBackColor = true;
+            this.buttonDesliga.UseVisualStyleBackColor = false;
             this.buttonDesliga.Click += new System.EventHandler(this.desliga_Click);
             // 
             // buttonAquisicao
@@ -232,6 +235,12 @@
             this.buttonVoltar.UseVisualStyleBackColor = true;
             this.buttonVoltar.Click += new System.EventHandler(this.voltar_Click);
             // 
+            // saveFileDialog1
+            // 
+            this.saveFileDialog1.DefaultExt = "csv";
+            this.saveFileDialog1.Filter = "Arquivos CSV|*.csv|Todos os arquivos|*.*";
+            this.saveFileDialog1.Title = "Aquisição de Dados do Experimento";
+            // 
             // Experimento2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -242,7 +251,7 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(titleE2);
             this.Name = "Experimento2";
-            this.Text = "Experimento2";
+            this.Text = "Experimento 2";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -267,5 +276,6 @@
         private System.Windows.Forms.Button buttonFinalizar;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Button buttonVoltar;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
     }
 }

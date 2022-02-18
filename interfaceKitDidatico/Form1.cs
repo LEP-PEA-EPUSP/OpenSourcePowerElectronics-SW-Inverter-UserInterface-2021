@@ -93,10 +93,9 @@ namespace interfaceKitDidatico
             if (serialPort1.IsOpen){
                 serialPort1.Close();
             }
-            
+
             serialPort1.PortName = comboBox1.Text;
-            
-            
+
             try 
             {
                 serialPort1.Open();
@@ -124,8 +123,7 @@ namespace interfaceKitDidatico
                     MessageBox.Show("Erro: Seleção da porta serial errada. Confira se a placa está conectada ao computador, entre no 'Gerenciado de Dispositivos' e veja em 'Portas (COM e LPT)' qual porta está sendo utilizada na comunicação com a placa.");
                     break;
                 }
-            }
-           
+            } 
         }
         
         public void comunicacao()
@@ -163,8 +161,8 @@ namespace interfaceKitDidatico
             textBox6.Text = contador.ToString();
             if (contador > tamanho_palavra)
             {
-                textBox9.Text = "Verificacao com sucesso";
-                //comboBox1.
+                textBox9.Text = "Conectado";
+                textBox9.BackColor = Color.LightGreen;
                 comboBox2.Enabled = true;
                 contador = 0;
             }

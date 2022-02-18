@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -59,7 +60,27 @@ namespace interfaceKitDidatico
 
         private void aquisicao_Click(object sender, EventArgs e)
         {
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                FileInfo fileInfo = new FileInfo(saveFileDialog1.FileName);
+                string path = fileInfo.ToString();
 
+                // seta variável que vai de 1 a 2024
+                int n = 1;
+
+                // Create a file to write to
+                string createText = n.ToString() + Environment.NewLine;
+                File.WriteAllText(path, createText);
+                n++;
+
+                // Parte de loop que adiciona os outros número no arquivo
+                while (n <= 2024)
+                {
+                    string appendText = n.ToString() + Environment.NewLine;
+                    File.AppendAllText(path, appendText);
+                    n++;
+                }
+            }
         }
 
         private void desliga_Click(object sender, EventArgs e)
@@ -76,8 +97,8 @@ namespace interfaceKitDidatico
 
         private void finalizar_Click(object sender, EventArgs e)
         {
-            //PaginaInicial.Enable = true;
             this.Close();
+            parent.Enabled = true;
         }
     }
 }
