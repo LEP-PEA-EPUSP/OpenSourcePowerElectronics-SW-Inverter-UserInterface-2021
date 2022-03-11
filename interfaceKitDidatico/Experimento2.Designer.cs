@@ -76,7 +76,7 @@
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(50, 82);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(400, 166);
+            this.groupBox1.Size = new System.Drawing.Size(400, 154);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Seleção de Dados";
@@ -85,10 +85,23 @@
             // 
             this.Vcc.FormattingEnabled = true;
             this.Vcc.Items.AddRange(new object[] {
-            "opcao1",
-            "opcao2",
-            "opcao3"});
-            this.Vcc.Location = new System.Drawing.Point(275, 75);
+            "0",
+            "10",
+            "20",
+            "30",
+            "40",
+            "50",
+            "60",
+            "70",
+            "80",
+            "90",
+            "100",
+            "110",
+            "120",
+            "130",
+            "140",
+            "150"});
+            this.Vcc.Location = new System.Drawing.Point(278, 60);
             this.Vcc.Name = "Vcc";
             this.Vcc.Size = new System.Drawing.Size(100, 23);
             this.Vcc.TabIndex = 5;
@@ -98,7 +111,7 @@
             this.textBox3.BackColor = System.Drawing.SystemColors.MenuBar;
             this.textBox3.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox3.Location = new System.Drawing.Point(275, 52);
+            this.textBox3.Location = new System.Drawing.Point(278, 37);
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(100, 17);
             this.textBox3.TabIndex = 4;
@@ -108,12 +121,13 @@
             // 
             this.Frequency.FormattingEnabled = true;
             this.Frequency.Items.AddRange(new object[] {
-            "valor1",
-            "valor2",
-            "valor3"});
-            this.Frequency.Location = new System.Drawing.Point(150, 75);
+            "1200",
+            "2400",
+            "3600",
+            "4800"});
+            this.Frequency.Location = new System.Drawing.Point(154, 60);
             this.Frequency.Name = "Frequency";
-            this.Frequency.Size = new System.Drawing.Size(100, 23);
+            this.Frequency.Size = new System.Drawing.Size(112, 23);
             this.Frequency.TabIndex = 3;
             // 
             // textBox2
@@ -121,18 +135,18 @@
             this.textBox2.BackColor = System.Drawing.SystemColors.MenuBar;
             this.textBox2.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox2.Location = new System.Drawing.Point(150, 52);
+            this.textBox2.Location = new System.Drawing.Point(154, 37);
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(100, 17);
+            this.textBox2.Size = new System.Drawing.Size(112, 17);
             this.textBox2.TabIndex = 2;
-            this.textBox2.Text = "Frequência:";
+            this.textBox2.Text = "Frequência(Hz):";
             // 
             // buttonAvancar
             // 
             this.buttonAvancar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonAvancar.Location = new System.Drawing.Point(25, 119);
+            this.buttonAvancar.Location = new System.Drawing.Point(22, 107);
             this.buttonAvancar.Name = "buttonAvancar";
-            this.buttonAvancar.Size = new System.Drawing.Size(350, 30);
+            this.buttonAvancar.Size = new System.Drawing.Size(356, 30);
             this.buttonAvancar.TabIndex = 3;
             this.buttonAvancar.Text = "Avançar";
             this.buttonAvancar.UseVisualStyleBackColor = true;
@@ -144,9 +158,9 @@
             this.NivelPWM.Items.AddRange(new object[] {
             "2 níveis",
             "3 níveis"});
-            this.NivelPWM.Location = new System.Drawing.Point(25, 75);
+            this.NivelPWM.Location = new System.Drawing.Point(22, 60);
             this.NivelPWM.Name = "NivelPWM";
-            this.NivelPWM.Size = new System.Drawing.Size(100, 23);
+            this.NivelPWM.Size = new System.Drawing.Size(119, 23);
             this.NivelPWM.TabIndex = 1;
             // 
             // textBox1
@@ -154,11 +168,11 @@
             this.textBox1.BackColor = System.Drawing.SystemColors.MenuBar;
             this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(25, 52);
+            this.textBox1.Location = new System.Drawing.Point(24, 37);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 17);
+            this.textBox1.Size = new System.Drawing.Size(117, 17);
             this.textBox1.TabIndex = 0;
-            this.textBox1.Text = "Nível PWM:";
+            this.textBox1.Text = "Número de níveis:";
             // 
             // buttonLiga
             // 
@@ -199,9 +213,8 @@
             // 
             // buttonFinalizar
             // 
-            this.buttonFinalizar.Enabled = false;
             this.buttonFinalizar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonFinalizar.Location = new System.Drawing.Point(50, 418);
+            this.buttonFinalizar.Location = new System.Drawing.Point(50, 408);
             this.buttonFinalizar.Name = "buttonFinalizar";
             this.buttonFinalizar.Size = new System.Drawing.Size(400, 31);
             this.buttonFinalizar.TabIndex = 7;
@@ -217,7 +230,7 @@
             this.groupBox2.Controls.Add(this.buttonAquisicao);
             this.groupBox2.Enabled = false;
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox2.Location = new System.Drawing.Point(50, 263);
+            this.groupBox2.Location = new System.Drawing.Point(50, 258);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(400, 133);
             this.groupBox2.TabIndex = 8;
@@ -237,8 +250,8 @@
             // 
             // saveFileDialog1
             // 
-            this.saveFileDialog1.DefaultExt = "csv";
-            this.saveFileDialog1.Filter = "Arquivos CSV|*.csv|Todos os arquivos|*.*";
+            this.saveFileDialog1.DefaultExt = "txt";
+            this.saveFileDialog1.Filter = "Arquivos TXT|*.txt|Todos os arquivos|*.*";
             this.saveFileDialog1.Title = "Aquisição de Dados do Experimento";
             // 
             // Experimento2
@@ -252,6 +265,7 @@
             this.Controls.Add(titleE2);
             this.Name = "Experimento2";
             this.Text = "Experimento 2";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.close_Click);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);

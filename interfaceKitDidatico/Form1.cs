@@ -116,19 +116,29 @@ namespace interfaceKitDidatico
                 try
                 {
                     comunicacao();
-                    comboBox1.Enabled = false;
+                    //comboBox1.Enabled = false;
                 }
                 catch
                 {
                     MessageBox.Show("Erro: Seleção da porta serial errada. Confira se a placa está conectada ao computador, entre no 'Gerenciado de Dispositivos' e veja em 'Portas (COM e LPT)' qual porta está sendo utilizada na comunicação com a placa.");
+                    textBox9.Text = "Erro";
+                    textBox9.BackColor = Color.Salmon;
                     break;
                 }
-            } 
+            }
+            if (i > 10)
+            {
+                comboBox1.Enabled = false;
+                textBox9.Text = "Conectado";
+                textBox9.BackColor = Color.LightGreen;
+                comboBox2.Enabled = true;
+            }
         }
-        
+
+        //Teste de Comunicacao
         public void comunicacao()
         {
-            //Teste de Comunicacao
+            //Envio de dados para teste
             int i;
             for (i = 0; i < tamanho_palavra; i++)
             {
@@ -137,35 +147,36 @@ namespace interfaceKitDidatico
 
             serialPort1.Write(buffer, 0, tamanho_palavra);
 
+            //Essa parte não é necessária -- Impressão dos valores do buffer na caixa de texto que está Invisible
             string[] texto = new string[tamanho_palavra];
             for (i = 0; i < tamanho_palavra; i++)
             {
                 texto[i] = buffer[i].ToString();
             }
-
             textBox4.Text = texto[0] + texto[1] + texto[2] + texto[3] + texto[4] + texto[5] + texto[6] + texto[7] + texto[8];
 
+            //Recebimento de dados para teste
             byte[] buffer2 = new byte[tamanho_palavra];
             serialPort1.Read(buffer2, 0, tamanho_palavra);
 
+            //Essa parte não é necessária -- Impressão dos valores do buffer na caixa de texto que está Invisible
             string[] texto2 = new string[tamanho_palavra];
             for (i = 0; i < tamanho_palavra; i++)
             {
                 texto2[i] = buffer[i].ToString();
             }
-
             textBox5.Text = texto2[0] + texto2[1] + texto2[2] + texto2[3] + texto2[4] + texto2[5] + texto2[6] + texto2[7] + texto2[8];
 
-            //repete 10x e diz que foi bem sucedido
-            contador++;
-            textBox6.Text = contador.ToString();
-            if (contador > tamanho_palavra)
+            //Essa parte não é necessária -- A repetição da verificação está sendo feita na chamada da função através do for
+            //contador++;
+            //textBox6.Text = contador.ToString();
+            /*if (contador > tamanho_palavra)
             {
                 textBox9.Text = "Conectado";
                 textBox9.BackColor = Color.LightGreen;
                 comboBox2.Enabled = true;
                 contador = 0;
-            }
+            }*/
         }
 
         private void PaginaInicial_Load(object sender, EventArgs e)
