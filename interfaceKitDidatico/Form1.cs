@@ -18,19 +18,20 @@ namespace interfaceKitDidatico
         int tamanho_palavra = 10;
         int numeroExp = 0;
         bool alerta_aberto = false;
-        public static byte[] buffer = new byte[10];
+        public static byte[] buffer = new byte[32];
+        bool[] erro = new bool[3];         
+
         public PaginaInicial()
         {
             InitializeComponent();
-            //serialPort1.Open();
         }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            //serialPort1.Write(buffer, 0, tamanho_palavra);
             try
             {
-                serialPort1.Write(buffer, 0, tamanho_palavra);
+                serialPort1.Write(buffer, 0, 32);
+                //serialPort1.Read --> para caso de data request
             }
             catch
             {
@@ -81,6 +82,7 @@ namespace interfaceKitDidatico
 
         private void serialPort1_ErrorReceived(object sender, System.IO.Ports.SerialErrorReceivedEventArgs e)
         {
+      
         }
 
         private void serialPort1_DataReceived(object sender, System.IO.Ports.SerialDataReceivedEventArgs e)

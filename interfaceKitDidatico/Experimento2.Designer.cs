@@ -30,9 +30,9 @@
         {
             System.Windows.Forms.TextBox titleE2;
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.Vcc = new System.Windows.Forms.ComboBox();
+            this.IndiceMod = new System.Windows.Forms.ComboBox();
             this.textBox3 = new System.Windows.Forms.TextBox();
-            this.Frequency = new System.Windows.Forms.ComboBox();
+            this.FrequenciaMod = new System.Windows.Forms.ComboBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.buttonAvancar = new System.Windows.Forms.Button();
             this.NivelPWM = new System.Windows.Forms.ComboBox();
@@ -44,6 +44,8 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.buttonVoltar = new System.Windows.Forms.Button();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.PulsosCiclo = new System.Windows.Forms.ComboBox();
             titleE2 = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -55,7 +57,7 @@
             titleE2.BackColor = System.Drawing.SystemColors.MenuBar;
             titleE2.CausesValidation = false;
             titleE2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            titleE2.Location = new System.Drawing.Point(50, 35);
+            titleE2.Location = new System.Drawing.Point(50, 12);
             titleE2.Name = "titleE2";
             titleE2.ReadOnly = true;
             titleE2.Size = new System.Drawing.Size(400, 29);
@@ -66,85 +68,78 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.Vcc);
+            this.groupBox1.Controls.Add(this.PulsosCiclo);
+            this.groupBox1.Controls.Add(this.textBox4);
+            this.groupBox1.Controls.Add(this.IndiceMod);
             this.groupBox1.Controls.Add(this.textBox3);
-            this.groupBox1.Controls.Add(this.Frequency);
+            this.groupBox1.Controls.Add(this.FrequenciaMod);
             this.groupBox1.Controls.Add(this.textBox2);
             this.groupBox1.Controls.Add(this.buttonAvancar);
             this.groupBox1.Controls.Add(this.NivelPWM);
             this.groupBox1.Controls.Add(this.textBox1);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.Location = new System.Drawing.Point(50, 82);
+            this.groupBox1.Location = new System.Drawing.Point(50, 57);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(400, 154);
+            this.groupBox1.Size = new System.Drawing.Size(400, 205);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Seleção de Dados";
             // 
-            // Vcc
+            // IndiceMod
             // 
-            this.Vcc.FormattingEnabled = true;
-            this.Vcc.Items.AddRange(new object[] {
+            this.IndiceMod.FormattingEnabled = true;
+            this.IndiceMod.Items.AddRange(new object[] {
             "0",
-            "10",
-            "20",
-            "30",
-            "40",
+            "25",
             "50",
-            "60",
-            "70",
-            "80",
-            "90",
+            "75",
             "100",
-            "110",
-            "120",
-            "130",
-            "140",
+            "125",
             "150"});
-            this.Vcc.Location = new System.Drawing.Point(278, 60);
-            this.Vcc.Name = "Vcc";
-            this.Vcc.Size = new System.Drawing.Size(100, 23);
-            this.Vcc.TabIndex = 5;
+            this.IndiceMod.Location = new System.Drawing.Point(198, 50);
+            this.IndiceMod.Name = "IndiceMod";
+            this.IndiceMod.Size = new System.Drawing.Size(155, 23);
+            this.IndiceMod.TabIndex = 5;
             // 
             // textBox3
             // 
             this.textBox3.BackColor = System.Drawing.SystemColors.MenuBar;
             this.textBox3.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox3.Location = new System.Drawing.Point(278, 37);
+            this.textBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox3.Location = new System.Drawing.Point(198, 30);
+            this.textBox3.Multiline = true;
             this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(100, 17);
+            this.textBox3.Size = new System.Drawing.Size(177, 21);
             this.textBox3.TabIndex = 4;
-            this.textBox3.Text = "Vref/Vcc:";
+            this.textBox3.Text = "Índice de modulação (%):";
             // 
-            // Frequency
+            // FrequenciaMod
             // 
-            this.Frequency.FormattingEnabled = true;
-            this.Frequency.Items.AddRange(new object[] {
-            "1200",
-            "2400",
-            "3600",
-            "4800"});
-            this.Frequency.Location = new System.Drawing.Point(154, 60);
-            this.Frequency.Name = "Frequency";
-            this.Frequency.Size = new System.Drawing.Size(112, 23);
-            this.Frequency.TabIndex = 3;
+            this.FrequenciaMod.FormattingEnabled = true;
+            this.FrequenciaMod.Items.AddRange(new object[] {
+            "30",
+            "60"});
+            this.FrequenciaMod.Location = new System.Drawing.Point(54, 120);
+            this.FrequenciaMod.Name = "FrequenciaMod";
+            this.FrequenciaMod.Size = new System.Drawing.Size(121, 23);
+            this.FrequenciaMod.TabIndex = 3;
             // 
             // textBox2
             // 
             this.textBox2.BackColor = System.Drawing.SystemColors.MenuBar;
             this.textBox2.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox2.Location = new System.Drawing.Point(154, 37);
+            this.textBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox2.Location = new System.Drawing.Point(54, 84);
+            this.textBox2.Multiline = true;
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(112, 17);
+            this.textBox2.Size = new System.Drawing.Size(121, 35);
             this.textBox2.TabIndex = 2;
-            this.textBox2.Text = "Frequência(Hz):";
+            this.textBox2.Text = "Frequência da moduladora (Hz):";
             // 
             // buttonAvancar
             // 
             this.buttonAvancar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonAvancar.Location = new System.Drawing.Point(22, 107);
+            this.buttonAvancar.Location = new System.Drawing.Point(19, 159);
             this.buttonAvancar.Name = "buttonAvancar";
             this.buttonAvancar.Size = new System.Drawing.Size(356, 30);
             this.buttonAvancar.TabIndex = 3;
@@ -158,7 +153,7 @@
             this.NivelPWM.Items.AddRange(new object[] {
             "2 níveis",
             "3 níveis"});
-            this.NivelPWM.Location = new System.Drawing.Point(22, 60);
+            this.NivelPWM.Location = new System.Drawing.Point(54, 50);
             this.NivelPWM.Name = "NivelPWM";
             this.NivelPWM.Size = new System.Drawing.Size(119, 23);
             this.NivelPWM.TabIndex = 1;
@@ -167,10 +162,10 @@
             // 
             this.textBox1.BackColor = System.Drawing.SystemColors.MenuBar;
             this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(24, 37);
+            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox1.Location = new System.Drawing.Point(54, 30);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(117, 17);
+            this.textBox1.Size = new System.Drawing.Size(119, 15);
             this.textBox1.TabIndex = 0;
             this.textBox1.Text = "Número de níveis:";
             // 
@@ -214,7 +209,7 @@
             // buttonFinalizar
             // 
             this.buttonFinalizar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonFinalizar.Location = new System.Drawing.Point(50, 408);
+            this.buttonFinalizar.Location = new System.Drawing.Point(50, 416);
             this.buttonFinalizar.Name = "buttonFinalizar";
             this.buttonFinalizar.Size = new System.Drawing.Size(400, 31);
             this.buttonFinalizar.TabIndex = 7;
@@ -230,7 +225,7 @@
             this.groupBox2.Controls.Add(this.buttonAquisicao);
             this.groupBox2.Enabled = false;
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox2.Location = new System.Drawing.Point(50, 258);
+            this.groupBox2.Location = new System.Drawing.Point(50, 268);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(400, 133);
             this.groupBox2.TabIndex = 8;
@@ -253,6 +248,32 @@
             this.saveFileDialog1.DefaultExt = "txt";
             this.saveFileDialog1.Filter = "Arquivos TXT|*.txt|Todos os arquivos|*.*";
             this.saveFileDialog1.Title = "Aquisição de Dados do Experimento";
+            // 
+            // textBox4
+            // 
+            this.textBox4.BackColor = System.Drawing.SystemColors.MenuBar;
+            this.textBox4.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox4.Location = new System.Drawing.Point(198, 84);
+            this.textBox4.Multiline = true;
+            this.textBox4.Name = "textBox4";
+            this.textBox4.Size = new System.Drawing.Size(155, 35);
+            this.textBox4.TabIndex = 6;
+            this.textBox4.Text = "Pulsos de chaveamento por ciclo:";
+            // 
+            // PulsosCiclo
+            // 
+            this.PulsosCiclo.FormattingEnabled = true;
+            this.PulsosCiclo.Items.AddRange(new object[] {
+            "10",
+            "20",
+            "30",
+            "40",
+            "50"});
+            this.PulsosCiclo.Location = new System.Drawing.Point(198, 120);
+            this.PulsosCiclo.Name = "PulsosCiclo";
+            this.PulsosCiclo.Size = new System.Drawing.Size(155, 23);
+            this.PulsosCiclo.TabIndex = 7;
             // 
             // Experimento2
             // 
@@ -279,9 +300,9 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.ComboBox NivelPWM;
         private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.ComboBox Vcc;
+        private System.Windows.Forms.ComboBox IndiceMod;
         private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.ComboBox Frequency;
+        private System.Windows.Forms.ComboBox FrequenciaMod;
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.Button buttonAvancar;
         private System.Windows.Forms.Button buttonLiga;
@@ -291,5 +312,7 @@
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Button buttonVoltar;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
+        private System.Windows.Forms.ComboBox PulsosCiclo;
+        private System.Windows.Forms.TextBox textBox4;
     }
 }
