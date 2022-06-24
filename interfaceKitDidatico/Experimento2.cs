@@ -91,7 +91,7 @@ namespace interfaceKitDidatico
                 //Byte [2:1] - Inversor enable pin
                 Byte2 = 0b_0000_0000;
 
-                //Byte [2:2] - Request foundation update
+                //Byte [2:2] - Request foundation update ***
                 if (auxNivelPWM != NivelPWM.Text)
                 {
                     Byte2 = 0b_0100_0000;
@@ -109,7 +109,7 @@ namespace interfaceKitDidatico
                 //Byte [2:7] - Repetition counter (Single update --> 1 | double update --> 0)
                 Byte2 = Byte2 | (RCR << 1);
 
-                //Byte [2:8] - Request PWM counter configuration update
+                //Byte [2:8] - Request PWM counter configuration update ***  
                 uint PWMcountUpdate;
                 if (auxFrequenciaMod != FrequenciaMod.Text || auxPulsosCiclo != PulsosCiclo.Text)
                 {
@@ -148,7 +148,7 @@ namespace interfaceKitDidatico
 
             //----------Definições Byte [7]----------//
 
-                //Byte [7:1] - Request modulation update
+                //Byte [7:1] - Request modulation update ***
                 Byte7 = 0b_0000_0000;
                 if (auxIndiceMod != IndiceMod.Text)
                 {
@@ -208,6 +208,9 @@ namespace interfaceKitDidatico
                 groupBox2.Enabled = true;
                 //Desabilita "Seleção de Dados"
                 groupBox1.Enabled = false;
+
+
+
             }
 
         }

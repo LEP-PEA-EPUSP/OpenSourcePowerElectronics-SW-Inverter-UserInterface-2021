@@ -15,7 +15,8 @@ namespace interfaceKitDidatico
     {
        
         int contador=0;
-        int tamanho_palavra = 10;
+        int tamanho_pacote_enviado = 32;
+        int tamanho_pacote_recebido = 4;
         int numeroExp = 0;
         bool alerta_aberto = false;
         public static byte[] buffer = new byte[32];
@@ -30,7 +31,7 @@ namespace interfaceKitDidatico
         {
             try
             {
-                serialPort1.Write(buffer, 0, 32);
+                serialPort1.Write(buffer, 0, tamanho_pacote_enviado);
                 //serialPort1.Read --> para caso de data request
             }
             catch
@@ -63,7 +64,7 @@ namespace interfaceKitDidatico
             }
             else if (numeroExp == 2)
             {
-                Experimento2 tela = new Experimento2(this, tamanho_palavra);
+                Experimento2 tela = new Experimento2(this, tamanho_pacote_recebido);
                 tela.Show();
                 Enabled = false;
                 numeroExp = 0;
@@ -87,7 +88,7 @@ namespace interfaceKitDidatico
 
         private void serialPort1_DataReceived(object sender, System.IO.Ports.SerialDataReceivedEventArgs e)
         {
-            
+            //MessageBox.Show("Recebido");
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -142,43 +143,25 @@ namespace interfaceKitDidatico
         {
             //Envio de dados para teste
             int i;
-            for (i = 0; i < tamanho_palavra; i++)
+            for (i = 0; i < tamanho_pacote_enviado; i++)
             {
                 buffer[i] = 0x41;
             }
-
-            serialPort1.Write(buffer, 0, tamanho_palavra);
-
-            //Essa parte não é necessária -- Impressão dos valores do buffer na caixa de texto que está Invisible
-            string[] texto = new string[tamanho_palavra];
-            for (i = 0; i < tamanho_palavra; i++)
-            {
-                texto[i] = buffer[i].ToString();
-            }
-            textBox4.Text = texto[0] + texto[1] + texto[2] + texto[3] + texto[4] + texto[5] + texto[6] + texto[7] + texto[8];
+            serialPort1.Write(buffer, 0, tamanho_pacote_enviado);
 
             //Recebimento de dados para teste
-            byte[] buffer2 = new byte[tamanho_palavra];
-            serialPort1.Read(buffer2, 0, tamanho_palavra);
+            byte[] buffer2 = new byte[tamanho_pacote_recebido];
+            serialPort1.Read(buffer2, 0, tamanho_pacote_recebido);
 
-            //Essa parte não é necessária -- Impressão dos valores do buffer na caixa de texto que está Invisible
-            string[] texto2 = new string[tamanho_palavra];
-            for (i = 0; i < tamanho_palavra; i++)
+            //Confere se dados devolvidos estão consistentes
+            for (i = 0; i < tamanho_pacote_recebido; i++)
             {
-                texto2[i] = buffer[i].ToString();
+                if (buffer2[i] != 0x41)
+                {
+                    MessageBox.Show("Erro: Falha na comunicação. Dados enviados pelo ARM estão inconsistentes.");
+                }
             }
-            textBox5.Text = texto2[0] + texto2[1] + texto2[2] + texto2[3] + texto2[4] + texto2[5] + texto2[6] + texto2[7] + texto2[8];
 
-            //Essa parte não é necessária -- A repetição da verificação está sendo feita na chamada da função através do for
-            //contador++;
-            //textBox6.Text = contador.ToString();
-            /*if (contador > tamanho_palavra)
-            {
-                textBox9.Text = "Conectado";
-                textBox9.BackColor = Color.LightGreen;
-                comboBox2.Enabled = true;
-                contador = 0;
-            }*/
         }
 
         private void PaginaInicial_Load(object sender, EventArgs e)

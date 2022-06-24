@@ -34,12 +34,9 @@
             this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
             this.textBox4 = new System.Windows.Forms.TextBox();
             this.textBox5 = new System.Windows.Forms.TextBox();
             this.iniciarVerificacao = new System.Windows.Forms.Button();
-            this.textBox6 = new System.Windows.Forms.TextBox();
-            this.textBox7 = new System.Windows.Forms.TextBox();
             this.textBox8 = new System.Windows.Forms.TextBox();
             this.textBox10 = new System.Windows.Forms.TextBox();
             this.comboBox2 = new System.Windows.Forms.ComboBox();
@@ -75,7 +72,7 @@
             // serialPort1
             // 
             this.serialPort1.BaudRate = 115200;
-            this.serialPort1.Parity = System.IO.Ports.Parity.Even;
+            this.serialPort1.Parity = System.IO.Ports.Parity.Odd;
             this.serialPort1.PortName = "COM4";
             this.serialPort1.ReadTimeout = 500;
             this.serialPort1.WriteTimeout = 500;
@@ -104,21 +101,14 @@
             "COM3",
             "COM4",
             "COM5",
-            "COM6"});
+            "COM6",
+            "COM7",
+            "COM8"});
             this.comboBox1.Location = new System.Drawing.Point(18, 74);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(117, 23);
             this.comboBox1.TabIndex = 2;
             this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
-            // 
-            // textBox3
-            // 
-            this.textBox3.Location = new System.Drawing.Point(50, 394);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(142, 20);
-            this.textBox3.TabIndex = 3;
-            this.textBox3.Text = "Verificação de Comunicação";
-            this.textBox3.Visible = false;
             // 
             // textBox4
             // 
@@ -148,23 +138,6 @@
             this.iniciarVerificacao.Text = "Iniciar Verificação";
             this.iniciarVerificacao.UseVisualStyleBackColor = true;
             this.iniciarVerificacao.Click += new System.EventHandler(this.iniciarVerificacao_Click);
-            // 
-            // textBox6
-            // 
-            this.textBox6.Location = new System.Drawing.Point(350, 394);
-            this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(100, 20);
-            this.textBox6.TabIndex = 7;
-            this.textBox6.Visible = false;
-            // 
-            // textBox7
-            // 
-            this.textBox7.Location = new System.Drawing.Point(244, 394);
-            this.textBox7.Name = "textBox7";
-            this.textBox7.Size = new System.Drawing.Size(100, 20);
-            this.textBox7.TabIndex = 8;
-            this.textBox7.Text = "Contador";
-            this.textBox7.Visible = false;
             // 
             // textBox8
             // 
@@ -258,10 +231,7 @@
             this.ClientSize = new System.Drawing.Size(484, 461);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.textBox3);
             this.Controls.Add(this.textBox4);
-            this.Controls.Add(this.textBox7);
-            this.Controls.Add(this.textBox6);
             this.Controls.Add(this.textBox5);
             this.Controls.Add(textBox1);
             this.Name = "PaginaInicial";
@@ -283,12 +253,9 @@
         private System.IO.Ports.SerialPort serialPort1;
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.TextBox textBox4;
         private System.Windows.Forms.TextBox textBox5;
         private System.Windows.Forms.Button iniciarVerificacao;
-        private System.Windows.Forms.TextBox textBox6;
-        private System.Windows.Forms.TextBox textBox7;
         private System.Windows.Forms.TextBox textBox8;
         private System.Windows.Forms.TextBox textBox10;
         private System.Windows.Forms.ComboBox comboBox2;
