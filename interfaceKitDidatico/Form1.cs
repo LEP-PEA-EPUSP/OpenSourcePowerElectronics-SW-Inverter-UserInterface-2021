@@ -16,11 +16,12 @@ namespace interfaceKitDidatico
        
         int contador=0;
         int tamanho_pacote_enviado = 32;
-        int tamanho_pacote_recebido = 4;
+        int tamanho_pacote_recebido = 10;
         int numeroExp = 0;
         bool alerta_aberto = false;
         public static byte[] buffer = new byte[32];
-        bool[] erro = new bool[3];         
+        public static byte[] buffer2 = new byte[10];
+        bool erro_dados = false;  
 
         public PaginaInicial()
         {
@@ -113,55 +114,68 @@ namespace interfaceKitDidatico
         private void iniciarVerificacao_Click(object sender, EventArgs e)
         {
             textBox9.Text = "Verificando";
-            int i;
-            for (i=0; i <= 10; i++)
+            try
             {
-                try
+                comunicacao();
+            }
+            catch
+            {
+                MessageBox.Show("Erro: Seleção da porta serial errada. Confira se a placa está conectada ao computador, entre no 'Gerenciado de Dispositivos' e veja em 'Portas (COM e LPT)' qual porta está sendo utilizada na comunicação com a placa.");
+                textBox9.Text = "Erro";
+                textBox9.BackColor = Color.Salmon;
+            }
+
+            if (contador==10)
+            {
+                if (erro_dados == false)
                 {
-                    comunicacao();
-                    //comboBox1.Enabled = false;
+                    comboBox1.Enabled = false;
+                    textBox9.Text = "Conectado";
+                    textBox9.BackColor = Color.LightGreen;
+                    comboBox2.Enabled = true;
                 }
-                catch
+                else
                 {
-                    MessageBox.Show("Erro: Seleção da porta serial errada. Confira se a placa está conectada ao computador, entre no 'Gerenciado de Dispositivos' e veja em 'Portas (COM e LPT)' qual porta está sendo utilizada na comunicação com a placa.");
+                    MessageBox.Show("Erro: Falha na comunicação. Dados enviados pelo ARM estão inconsistentes.");
                     textBox9.Text = "Erro";
                     textBox9.BackColor = Color.Salmon;
-                    break;
                 }
-            }
-            if (i > 10)
-            {
-                comboBox1.Enabled = false;
-                textBox9.Text = "Conectado";
-                textBox9.BackColor = Color.LightGreen;
-                comboBox2.Enabled = true;
             }
         }
 
         //Teste de Comunicacao
         public void comunicacao()
         {
-            //Envio de dados para teste
             int i;
-            for (i = 0; i < tamanho_pacote_enviado; i++)
+            //Repete procedimento de envio e recebimento 10 vezes
+            for (i = 0; i <= 10; i++)
             {
-                buffer[i] = 0x41;
-            }
-            serialPort1.Write(buffer, 0, tamanho_pacote_enviado);
-
-            //Recebimento de dados para teste
-            byte[] buffer2 = new byte[tamanho_pacote_recebido];
-            serialPort1.Read(buffer2, 0, tamanho_pacote_recebido);
-
-            //Confere se dados devolvidos estão consistentes
-            for (i = 0; i < tamanho_pacote_recebido; i++)
-            {
-                if (buffer2[i] != 0x41)
+                //Criação do pacote de teste que será enviado
+                int j;
+                for (j = 0; j < 32; j++)
                 {
-                    MessageBox.Show("Erro: Falha na comunicação. Dados enviados pelo ARM estão inconsistentes.");
+                    buffer[j] = 4;
+                    Console.WriteLine(Convert.ToString(buffer[j], toBase: 10)); //linha para testes
+                }
+                //Envio do pacote de teste
+                serialPort1.Write(buffer, 0, 32);
+
+                //Recebimento dos dados retribuidos pelo ARM
+                serialPort1.Read(buffer2, 0, tamanho_pacote_recebido);
+
+                //Confere se dados devolvidos estão consistentes
+                for (j = 0; j < 10; j++)
+                {
+                    Console.WriteLine(Convert.ToString(j)); //linha para testes
+                    Console.WriteLine(Convert.ToString(buffer2[j], toBase: 10)); //linha para testes
+                    if (i==10 && buffer2[j] != 4)
+                    {
+                        //MessageBox.Show("Erro: Falha na comunicação. Dados enviados pelo ARM estão inconsistentes.");
+                        erro_dados = true;
+                    }
                 }
             }
-
+            contador = 10;
         }
 
         private void PaginaInicial_Load(object sender, EventArgs e)
@@ -182,6 +196,7 @@ namespace interfaceKitDidatico
                 numeroExp = Convert.ToInt32(comboBox2.Text);
                 timer1.Enabled = true;
             }
+
         }
     }
 }

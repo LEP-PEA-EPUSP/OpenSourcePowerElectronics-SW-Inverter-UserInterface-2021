@@ -210,7 +210,6 @@ namespace interfaceKitDidatico
                 groupBox1.Enabled = false;
 
 
-
             }
 
         }
