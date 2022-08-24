@@ -74,15 +74,11 @@ C:\Users\rebec\Projetos\IHM\interfaceKitDidatico\bin\Debug\interfaceKitDidatico.
 C:\Users\rebec\Projetos\IHM\interfaceKitDidatico\obj\Debug\interfaceKitDidatico.csproj.AssemblyReference.cache
 C:\Users\rebec\Projetos\IHM\interfaceKitDidatico\obj\Debug\interfaceKitDidatico.csproj.SuggestedBindingRedirects.cache
 C:\Users\rebec\Projetos\IHM\interfaceKitDidatico\obj\Debug\interfaceKitDidatico.abrirArquivoCSV.resources
-C:\Users\rebec\Projetos\IHM\interfaceKitDidatico\obj\Debug\interfaceKitDidatico.dutyCycleFixo.resources
 C:\Users\rebec\Projetos\IHM\interfaceKitDidatico\obj\Debug\interfaceKitDidatico.PaginaInicial.resources
-C:\Users\rebec\Projetos\IHM\interfaceKitDidatico\obj\Debug\interfaceKitDidatico.gerarArquivoCSV.resources
-C:\Users\rebec\Projetos\IHM\interfaceKitDidatico\obj\Debug\interfaceKitDidatico.modulacaoSenoidal.resources
-C:\Users\rebec\Projetos\IHM\interfaceKitDidatico\obj\Debug\interfaceKitDidatico.modulacaoSenoidal3niveis.resources
 C:\Users\rebec\Projetos\IHM\interfaceKitDidatico\obj\Debug\interfaceKitDidatico.Properties.Resources.resources
 C:\Users\rebec\Projetos\IHM\interfaceKitDidatico\obj\Debug\interfaceKitDidatico.tela1.resources
 C:\Users\rebec\Projetos\IHM\interfaceKitDidatico\obj\Debug\interfaceKitDidatico.csproj.GenerateResource.cache
 C:\Users\rebec\Projetos\IHM\interfaceKitDidatico\obj\Debug\interfaceKitDidatico.csproj.CoreCompileInputs.cache
 C:\Users\rebec\Projetos\IHM\interfaceKitDidatico\obj\Debug\interfaceKitDidatico.exe
 C:\Users\rebec\Projetos\IHM\interfaceKitDidatico\obj\Debug\interfaceKitDidatico.pdb
-C:\Users\rebec\Projetos\IHM\interfaceKitDidatico\obj\Debug\interfaceKitDidatico.Experimento2.resources
+C:\Users\rebec\Projetos\IHM\interfaceKitDidatico\obj\Debug\interfaceKitDidatico.Tela2.resources

@@ -29,40 +29,40 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.TextBox textBox1;
+            System.Windows.Forms.TextBox textBox_titulo;
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
             this.textBox2 = new System.Windows.Forms.TextBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.comboBox_porta = new System.Windows.Forms.ComboBox();
             this.textBox4 = new System.Windows.Forms.TextBox();
             this.textBox5 = new System.Windows.Forms.TextBox();
-            this.iniciarVerificacao = new System.Windows.Forms.Button();
+            this.button_iniciar = new System.Windows.Forms.Button();
             this.textBox8 = new System.Windows.Forms.TextBox();
             this.textBox10 = new System.Windows.Forms.TextBox();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
-            this.textBox9 = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.comboBox_tela = new System.Windows.Forms.ComboBox();
+            this.textBox_status = new System.Windows.Forms.TextBox();
+            this.button_avancar = new System.Windows.Forms.Button();
+            this.groupBox_comunicacao = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            textBox1 = new System.Windows.Forms.TextBox();
-            this.groupBox1.SuspendLayout();
+            textBox_titulo = new System.Windows.Forms.TextBox();
+            this.groupBox_comunicacao.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
-            // textBox1
+            // textBox_titulo
             // 
-            textBox1.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            textBox1.BackColor = System.Drawing.SystemColors.MenuBar;
-            textBox1.CausesValidation = false;
-            textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            textBox1.Location = new System.Drawing.Point(50, 50);
-            textBox1.Name = "textBox1";
-            textBox1.ReadOnly = true;
-            textBox1.Size = new System.Drawing.Size(400, 29);
-            textBox1.TabIndex = 0;
-            textBox1.TabStop = false;
-            textBox1.Text = "LEP-PEA - Eletrônica de Potência";
-            textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            textBox_titulo.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            textBox_titulo.BackColor = System.Drawing.SystemColors.MenuBar;
+            textBox_titulo.CausesValidation = false;
+            textBox_titulo.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            textBox_titulo.Location = new System.Drawing.Point(50, 50);
+            textBox_titulo.Name = "textBox_titulo";
+            textBox_titulo.ReadOnly = true;
+            textBox_titulo.Size = new System.Drawing.Size(400, 29);
+            textBox_titulo.TabIndex = 0;
+            textBox_titulo.TabStop = false;
+            textBox_titulo.Text = "LEP-PEA - Eletrônica de Potência";
+            textBox_titulo.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // timer1
             // 
@@ -91,11 +91,11 @@
             this.textBox2.TabIndex = 1;
             this.textBox2.Text = "Selecione Porta:";
             // 
-            // comboBox1
+            // comboBox_porta
             // 
-            this.comboBox1.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
+            this.comboBox_porta.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.comboBox_porta.FormattingEnabled = true;
+            this.comboBox_porta.Items.AddRange(new object[] {
             "COM1",
             "COM2",
             "COM3",
@@ -104,11 +104,11 @@
             "COM6",
             "COM7",
             "COM8"});
-            this.comboBox1.Location = new System.Drawing.Point(18, 74);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(117, 23);
-            this.comboBox1.TabIndex = 2;
-            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            this.comboBox_porta.Location = new System.Drawing.Point(18, 74);
+            this.comboBox_porta.Name = "comboBox_porta";
+            this.comboBox_porta.Size = new System.Drawing.Size(117, 23);
+            this.comboBox_porta.TabIndex = 2;
+            this.comboBox_porta.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // textBox4
             // 
@@ -128,16 +128,16 @@
             this.textBox5.TabIndex = 5;
             this.textBox5.Visible = false;
             // 
-            // iniciarVerificacao
+            // button_iniciar
             // 
-            this.iniciarVerificacao.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.iniciarVerificacao.Location = new System.Drawing.Point(150, 54);
-            this.iniciarVerificacao.Name = "iniciarVerificacao";
-            this.iniciarVerificacao.Size = new System.Drawing.Size(103, 43);
-            this.iniciarVerificacao.TabIndex = 6;
-            this.iniciarVerificacao.Text = "Iniciar Verificação";
-            this.iniciarVerificacao.UseVisualStyleBackColor = true;
-            this.iniciarVerificacao.Click += new System.EventHandler(this.iniciarVerificacao_Click);
+            this.button_iniciar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button_iniciar.Location = new System.Drawing.Point(150, 54);
+            this.button_iniciar.Name = "button_iniciar";
+            this.button_iniciar.Size = new System.Drawing.Size(103, 43);
+            this.button_iniciar.TabIndex = 6;
+            this.button_iniciar.Text = "Iniciar Verificação";
+            this.button_iniciar.UseVisualStyleBackColor = true;
+            this.button_iniciar.Click += new System.EventHandler(this.iniciarVerificacao_Click);
             // 
             // textBox8
             // 
@@ -161,61 +161,61 @@
             this.textBox10.TabIndex = 11;
             this.textBox10.Text = "Selecione Experimento:";
             // 
-            // comboBox2
+            // comboBox_tela
             // 
-            this.comboBox2.Enabled = false;
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Items.AddRange(new object[] {
-            "1",
-            "2",
-            "3"});
-            this.comboBox2.Location = new System.Drawing.Point(50, 56);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(163, 23);
-            this.comboBox2.TabIndex = 12;
-            this.comboBox2.SelectedIndexChanged += new System.EventHandler(this.escolhaExperimento);
+            this.comboBox_tela.FormattingEnabled = true;
+            this.comboBox_tela.Items.AddRange(new object[] {
+            "Tela 1 - Conversor monofásico",
+            "Tela 2 - Conversor trifásico"});
+            this.comboBox_tela.Location = new System.Drawing.Point(50, 56);
+            this.comboBox_tela.Name = "comboBox_tela";
+            this.comboBox_tela.Size = new System.Drawing.Size(163, 23);
+            this.comboBox_tela.TabIndex = 12;
+            this.comboBox_tela.SelectedIndexChanged += new System.EventHandler(this.escolhaExperimento);
             // 
-            // textBox9
+            // textBox_status
             // 
-            this.textBox9.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox9.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.textBox9.Location = new System.Drawing.Point(267, 76);
-            this.textBox9.Name = "textBox9";
-            this.textBox9.Size = new System.Drawing.Size(117, 21);
-            this.textBox9.TabIndex = 10;
+            this.textBox_status.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox_status.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.textBox_status.Location = new System.Drawing.Point(267, 76);
+            this.textBox_status.Name = "textBox_status";
+            this.textBox_status.Size = new System.Drawing.Size(117, 21);
+            this.textBox_status.TabIndex = 10;
             // 
-            // button1
+            // button_avancar
             // 
-            this.button1.Enabled = false;
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(239, 36);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(113, 43);
-            this.button1.TabIndex = 13;
-            this.button1.Text = "Avançar";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.next_Click);
+            this.button_avancar.Enabled = false;
+            this.button_avancar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button_avancar.Location = new System.Drawing.Point(239, 36);
+            this.button_avancar.Name = "button_avancar";
+            this.button_avancar.Size = new System.Drawing.Size(113, 43);
+            this.button_avancar.TabIndex = 13;
+            this.button_avancar.Text = "Avançar";
+            this.button_avancar.UseVisualStyleBackColor = true;
+            this.button_avancar.Click += new System.EventHandler(this.next_Click);
             // 
-            // groupBox1
+            // groupBox_comunicacao
             // 
-            this.groupBox1.Controls.Add(this.textBox2);
-            this.groupBox1.Controls.Add(this.comboBox1);
-            this.groupBox1.Controls.Add(this.textBox8);
-            this.groupBox1.Controls.Add(this.textBox9);
-            this.groupBox1.Controls.Add(this.iniciarVerificacao);
-            this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.Location = new System.Drawing.Point(50, 106);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(400, 151);
-            this.groupBox1.TabIndex = 14;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Verificação de Comunicação";
+            this.groupBox_comunicacao.AutoSize = true;
+            this.groupBox_comunicacao.Controls.Add(this.textBox2);
+            this.groupBox_comunicacao.Controls.Add(this.comboBox_porta);
+            this.groupBox_comunicacao.Controls.Add(this.textBox8);
+            this.groupBox_comunicacao.Controls.Add(this.textBox_status);
+            this.groupBox_comunicacao.Controls.Add(this.button_iniciar);
+            this.groupBox_comunicacao.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox_comunicacao.Location = new System.Drawing.Point(50, 106);
+            this.groupBox_comunicacao.Name = "groupBox_comunicacao";
+            this.groupBox_comunicacao.Size = new System.Drawing.Size(400, 151);
+            this.groupBox_comunicacao.TabIndex = 14;
+            this.groupBox_comunicacao.TabStop = false;
+            this.groupBox_comunicacao.Text = "Verificação de Comunicação";
             // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.textBox10);
-            this.groupBox2.Controls.Add(this.comboBox2);
-            this.groupBox2.Controls.Add(this.button1);
+            this.groupBox2.Controls.Add(this.comboBox_tela);
+            this.groupBox2.Controls.Add(this.button_avancar);
+            this.groupBox2.Enabled = false;
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox2.Location = new System.Drawing.Point(50, 263);
             this.groupBox2.Name = "groupBox2";
@@ -230,16 +230,15 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(484, 461);
             this.Controls.Add(this.groupBox2);
-            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.groupBox_comunicacao);
             this.Controls.Add(this.textBox4);
             this.Controls.Add(this.textBox5);
-            this.Controls.Add(textBox1);
+            this.Controls.Add(textBox_titulo);
             this.Name = "PaginaInicial";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Página Inicial";
-            this.Load += new System.EventHandler(this.PaginaInicial_Load);
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
+            this.groupBox_comunicacao.ResumeLayout(false);
+            this.groupBox_comunicacao.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
@@ -252,16 +251,16 @@
         private System.Windows.Forms.Timer timer1;
         private System.IO.Ports.SerialPort serialPort1;
         private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox comboBox_porta;
         private System.Windows.Forms.TextBox textBox4;
         private System.Windows.Forms.TextBox textBox5;
-        private System.Windows.Forms.Button iniciarVerificacao;
+        private System.Windows.Forms.Button button_iniciar;
         private System.Windows.Forms.TextBox textBox8;
         private System.Windows.Forms.TextBox textBox10;
-        private System.Windows.Forms.ComboBox comboBox2;
-        private System.Windows.Forms.TextBox textBox9;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.ComboBox comboBox_tela;
+        private System.Windows.Forms.TextBox textBox_status;
+        private System.Windows.Forms.Button button_avancar;
+        private System.Windows.Forms.GroupBox groupBox_comunicacao;
         private System.Windows.Forms.GroupBox groupBox2;
     }
 }

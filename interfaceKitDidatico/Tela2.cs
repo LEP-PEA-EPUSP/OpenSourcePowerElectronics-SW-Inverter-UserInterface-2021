@@ -1,10 +1,17 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.IO;
 using System.Windows.Forms;
 
 namespace interfaceKitDidatico
 {
-    public partial class Experimento2 : Form
+    public partial class Tela2 : Form
     {
         private PaginaInicial parent;
         public int tamanho_palavra;
@@ -27,11 +34,11 @@ namespace interfaceKitDidatico
         uint Byte7;
         uint Byte8;
 
-        //Matrizes com palores de
+        //Matrizes com valores de
         uint[,] array30 = new uint[5, 4] { { 35000, 1, 0, 1 }, { 35000, 0, 0, 1 }, { 23000, 0, 0, 1 }, { 17500, 0, 0, 1 }, { 14000, 0, 0, 1 } };
         uint[,] array60 = new uint[5, 4] { { 35000, 3, 0, 1 }, { 35000, 1, 0, 1 }, { 46666, 0, 0, 1 }, { 35000, 0, 0, 1 }, { 28000, 0, 0, 1 } };
 
-        public Experimento2(PaginaInicial parent, int tamanho_palavra)
+        public Tela2(PaginaInicial parent, int tamanho_palavra)
         {
             this.parent = parent;
             InitializeComponent();
@@ -58,10 +65,10 @@ namespace interfaceKitDidatico
 
                 if (FrequenciaMod.Text == "30")
                 {
-                    ARR = array30[auxPulsos,0];
-                    PSC = array30[auxPulsos,1];
-                    RCR = array30[auxPulsos,2];
-                    CKD = array30[auxPulsos,3];
+                    ARR = array30[auxPulsos, 0];
+                    PSC = array30[auxPulsos, 1];
+                    RCR = array30[auxPulsos, 2];
+                    CKD = array30[auxPulsos, 3];
 
                 }
                 else if (FrequenciaMod.Text == "60")
@@ -73,20 +80,20 @@ namespace interfaceKitDidatico
 
                 }
 
-            //----------Definições Byte [1]----------//
+                //----------Definições Byte [1]----------//
 
                 //Byte [1:1] - Packet type (0: Command / 1: Data request)
                 Byte1 = 0b_0000_0000;
 
                 //Byte [1:2-5] - Exp. number
                 uint numeroExp = 2;
-                Byte1 = Byte1 | (numeroExp<<3);
+                Byte1 = Byte1 | (numeroExp << 3);
 
                 //Byte [1:6-8] - Subparte do experimento
                 //Não se aplica a esse experimento
 
 
-            //----------Definições Byte [2]----------//
+                //----------Definições Byte [2]----------//
 
                 //Byte [2:1] - Inversor enable pin
                 Byte2 = 0b_0000_0000;
@@ -118,56 +125,56 @@ namespace interfaceKitDidatico
                 else PWMcountUpdate = 0;
                 Byte2 = Byte2 | PWMcountUpdate;
 
-            //----------Definições Byte [3]: ARR (high)----------//
+                //----------Definições Byte [3]: ARR (high)----------//
 
                 Byte3 = 0b_0000_0000;
                 Byte3 = (ARR >> 8) & 255;
 
 
-            //----------Definições Byte [4]: ARR (low)----------//
-                
+                //----------Definições Byte [4]: ARR (low)----------//
+
                 Byte4 = 0b_0000_0000;
                 Byte4 = ARR & 255;
 
-            //----------Definições Byte [5]----------//
+                //----------Definições Byte [5]----------//
 
                 //Byte [5:1-4] - PWM prescaler value (PSC)
                 Byte5 = 0b_0000_0000;
-                Byte5 = PSC<<4;
+                Byte5 = PSC << 4;
 
                 //Byte [5:5-8] - PWM clock divider (TIM1)
                 Byte5 = Byte5 | CKD;
 
-            //----------Definições Byte [6]----------//
-                
+                //----------Definições Byte [6]----------//
+
                 Byte6 = 0b_0000_0000;
                 //Byte [6:1] - Request DAC update
                 //Byte [6:2] - DAC enable
                 //Byte [6:3-5] - DAC output 1 config
                 //Byte [6:6-8] - DAC output 2 config (future usage)
 
-            //----------Definições Byte [7]----------//
+                //----------Definições Byte [7]----------//
 
                 //Byte [7:1] - Request modulation update ***
                 Byte7 = 0b_0000_0000;
                 if (auxIndiceMod != IndiceMod.Text)
                 {
-                    Byte7 = Byte7 | (1<<7);
+                    Byte7 = Byte7 | (1 << 7);
                 }
 
                 //Byte [7:2] - Número de níveis - {0: 2 níveis / 1: 3 níveis}
-                if (NivelPWM.Text == "3 níveis")  Byte7 = Byte7 | (1<<6);
+                if (NivelPWM.Text == "3 níveis") Byte7 = Byte7 | (1 << 6);
 
                 //Byte [7:3-8] - Frequência da moduladora - {30 ou 60 Hz}
                 Byte7 = Byte7 | (Convert.ToUInt16(FrequenciaMod.Text));
 
-            //----------Definições Byte [8]----------//
-            
+                //----------Definições Byte [8]----------//
+
                 //Byte [8:1-8] - Índice de modulação
                 Byte8 = 0b_0000_0000;
                 Byte8 = Convert.ToUInt16(IndiceMod.Text);
 
-            //----------Registro dos bytes no pacote----------//
+                //----------Registro dos bytes no pacote----------//
 
                 buffer[1] = Convert.ToByte(Byte1);
                 buffer[2] = Convert.ToByte(Byte2);
@@ -178,7 +185,7 @@ namespace interfaceKitDidatico
                 buffer[7] = Convert.ToByte(Byte7);
                 buffer[8] = Convert.ToByte(Byte8);
 
-            //----------Linhas para testes----------//
+                //----------Linhas para testes----------//
                 Console.WriteLine(Convert.ToString(buffer[1], toBase: 2));
                 Console.WriteLine(Convert.ToString(buffer[2], toBase: 2));
                 Console.WriteLine(Convert.ToString(buffer[3], toBase: 2)); //linha para testes
@@ -188,7 +195,7 @@ namespace interfaceKitDidatico
                 Console.WriteLine(Convert.ToString(buffer[7], toBase: 2)); //linha para testes
                 Console.WriteLine(Convert.ToString(buffer[8], toBase: 2)); //linha para testes
 
-            //----------Envio do buffer para Pagina Inicial----------//
+                //----------Envio do buffer para Pagina Inicial----------//
                 PaginaInicial.buffer[1] = buffer[1];
                 PaginaInicial.buffer[2] = buffer[2];
                 PaginaInicial.buffer[3] = buffer[3];
@@ -232,7 +239,7 @@ namespace interfaceKitDidatico
             buttonVoltar.Enabled = false;
             buttonFinalizar.Enabled = false;
 
-        //-----Atualização de informações do pacote: Liga Inversor-----//
+            //-----Atualização de informações do pacote: Liga Inversor-----//
 
             // Byte [2:1] - Inversor enable pin (ligado)
             Byte2 = Byte2 | (1 << 7);
@@ -246,7 +253,7 @@ namespace interfaceKitDidatico
             //Byte [7:1] - Request modulation update
             Byte7 = Byte7 | (0 << 7);
 
-        //----------Registro dos bytes no pacote----------//
+            //----------Registro dos bytes no pacote----------//
 
             buffer[2] = Convert.ToByte(Byte2);
             buffer[7] = Convert.ToByte(Byte7);
@@ -338,5 +345,6 @@ namespace interfaceKitDidatico
                 parent.Enabled = true;
             }
         }
+
     }
 }
