@@ -76,8 +76,6 @@
             this.serialPort1.PortName = "COM4";
             this.serialPort1.ReadTimeout = 500;
             this.serialPort1.WriteTimeout = 500;
-            this.serialPort1.ErrorReceived += new System.IO.Ports.SerialErrorReceivedEventHandler(this.serialPort1_ErrorReceived);
-            this.serialPort1.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(this.serialPort1_DataReceived);
             // 
             // textBox2
             // 
