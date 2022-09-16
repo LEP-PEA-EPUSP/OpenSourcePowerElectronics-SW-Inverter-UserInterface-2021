@@ -28,12 +28,6 @@ namespace interfaceKitDidatico
 
         //Variáveis auxiliares para recebimento de dados
         public static int answer_type;
-        public static int no_exp;
-        public static int status;
-        public static int inverter_enable;
-        public static int PWM_foundation_update;
-        public static int PWM_counter_update;
-        public static int DAC_update;
 
         public PaginaInicial()
         {
@@ -84,11 +78,14 @@ namespace interfaceKitDidatico
                     textBox_status.Text = "Conectado";
                     textBox_status.BackColor = Color.LightGreen;
                     groupBox2.Enabled = true;
+                    timer1.Enabled = true;
                 }
                 else
                 {
                     ErrorHandler(3); // 3 --> Dados incosistentes
+                    erro_dados = false;
                 }
+                contador = 0;
             }
         }
 
@@ -111,7 +108,7 @@ namespace interfaceKitDidatico
                 //Registra tela escolhida
                 tela_escolhida = comboBox_tela.Text; 
                 //Função timer é ligada
-                timer1.Enabled = true;
+                //timer1.Enabled = true;
 
                 //Abertura de telas
                 if (tela_escolhida == "Tela 1 - Conversor monofásico")
@@ -153,32 +150,46 @@ namespace interfaceKitDidatico
                 ErrorHandler(4); // 4 --> erro de desconexão da placa
             }
 
+            Task.Delay(50);
+
             //Recebimento de dados
-            serialPort1.Read(buffer2, 0, tamanho_pacote_recebido);
-
+            Array.Clear(buffer2, 0, buffer2.Length);
+            try
+            {
+                serialPort1.Read(buffer2, 0, 10);
+            }
+            catch
+            {
+                
+            }
+            
+            Console.WriteLine("Pacote enviado:");
+            int j;
+            for (j = 0; j<8; j++)
+            {
+                Console.WriteLine(Convert.ToString(buffer[j], toBase: 2));
+            }
+            Console.WriteLine("Pacote recebido:");
+            int i;
+            for (i = 0; i < 8; i++)
+            {
+                Console.WriteLine(Convert.ToString(buffer2[i], toBase: 2));
+            }
+            
             answer_type = Convert.ToInt16(buffer2[0] >> 7);
-            if (answer_type == 0)
-            {
-                no_exp = Convert.ToInt16((buffer2[0] & 01111000) >> 3);
-                status = Convert.ToInt16(buffer2[0] & 00000111);
-
-                inverter_enable = Convert.ToInt16(buffer2[1] >> 7);
-                PWM_foundation_update = Convert.ToInt16((buffer2[1] & 01000000) >> 6);
-                PWM_counter_update = Convert.ToInt16((buffer2[1] & 00100000) >> 5);
-                DAC_update = Convert.ToInt16((buffer2[1] & 00010000) >> 4);
-
-            }
-            else if (answer_type == 1)
-            {
-                serialPort1.Read(buffer3, 0, 4101);
+            //if (answer_type == 1)
+           // {
+            //    serialPort1.Read(buffer3, 0, 4101);
                 //parte de aquisição
-            }
+          //  }
 
         }
 
         //Teste de Comunicacao
         public void comunicacao()
         {
+            //Array.Clear(buffer, 0, 32);
+            //Array.Clear(buffer2, 0, 32);
             erro_dados = false;
             int i;
             //Repete procedimento de envio e recebimento 10 vezes
@@ -193,11 +204,19 @@ namespace interfaceKitDidatico
 
                 //Envio do pacote de teste
                 serialPort1.Write(buffer, 0, 32);
+                Console.WriteLine("Dados enviados:");
+                Console.WriteLine(buffer[0]);
+                Console.WriteLine(buffer[16]);
+                Console.WriteLine(buffer[31]);
 
                 Task.Delay(50);
 
                 //Recebimento dos dados retribuidos pelo ARM
                 serialPort1.Read(buffer2, 0, 10);
+                Console.WriteLine("Dados recebidos:");
+                Console.WriteLine(buffer[0]);
+                Console.WriteLine(buffer[5]);
+                Console.WriteLine(buffer[9]);
 
                 //Confere se dados devolvidos estão consistentes
                 for (j = 0; j < 10; j++)
@@ -206,6 +225,7 @@ namespace interfaceKitDidatico
                     if (buffer2[j] != 4)
                     {
                         erro_dados = true;
+                        Console.WriteLine(Convert.ToString(buffer2[j]));
                     }
                 }
                 contador++;
@@ -217,19 +237,19 @@ namespace interfaceKitDidatico
             // 1 --> Erro de escolha de porta serial não utilizada
             if (error_type == 1)
             {
-                MessageBox.Show("Erro: Seleção de uma porta serial que não está sendo utilizada. Confira se a placa está conectada ao computador, entre no 'Gerenciado de Dispositivos' e veja em 'Portas (COM e LPT)' qual porta está sendo utilizada na comunicação com a placa.");
+                MessageBox.Show("Confira se a placa está conectada ao computador, entre no 'Gerenciado de Dispositivos' e veja em 'Portas (COM e LPT)' qual porta está sendo utilizada na comunicação com a placa.", "Erro: Seleção de uma porta serial que não está sendo utilizada");
             }
             // 2 --> Erro de escolha de porta serial errada
             else if (error_type == 2)
             {
-                MessageBox.Show("Erro: Seleção da porta serial errada. Confira se a placa está conectada ao computador, entre no 'Gerenciado de Dispositivos' e veja em 'Portas (COM e LPT)' qual porta está sendo utilizada na comunicação com a placa.");
+                MessageBox.Show("Confira se a placa está conectada ao computador, entre no 'Gerenciado de Dispositivos' e veja em 'Portas (COM e LPT)' qual porta está sendo utilizada na comunicação com a placa.", "Erro: Seleção da porta serial errada.");
                 textBox_status.Text = "Erro";
                 textBox_status.BackColor = Color.Salmon;
             }
             // 3 --> Dados incosistentes
             else if (error_type == 3)
             {
-                MessageBox.Show("Erro: Falha na comunicação. Dados enviados pelo ARM estão inconsistentes.");
+                MessageBox.Show("Dados enviados pelo ARM estão inconsistentes. As opções de solução são:/n 1.Tente clicar em 'Iniciar comunicação' novamente. Caso no funionar, tente a opção abaixo./n 2.Certifique-se de que o inversor está desligado (se precisar, peça ajuda do professor). Feche a interface e aperte o botão preto (reset) da placa Discovery (microcontrolador). Caso tenha dúvidas, peça ajuda de um monitor ou do professor.", "Erro: Falha na comunicação");
                 textBox_status.Text = "Erro";
                 textBox_status.BackColor = Color.Salmon;
             }
@@ -240,8 +260,8 @@ namespace interfaceKitDidatico
                 if (!alerta_aberto)
                 {
                     alerta_aberto = true;
-                    DialogResult result = MessageBox.Show("Erro: Porta desconectada. Conecte novamente a placa e clique em 'OK'.");
-                    if (result == DialogResult.OK)
+                    DialogResult result = MessageBox.Show("Conecte novamente a placa e clique em 'Retry', para tentar reestabelecer a conexão. Clique em 'Cancel' para fechar a interface.", "Erro: Porta desconectada", MessageBoxButtons.RetryCancel);
+                    if (result == DialogResult.Retry)
                     {
                         try
                         {
@@ -254,9 +274,12 @@ namespace interfaceKitDidatico
                         alerta_aberto = false;
                         result = 0;
                     }
+                    else if (result == DialogResult.Cancel)
+                    {
+                        Environment.Exit(0);
+                    }
                 }
             }
         }
-
     }
 }

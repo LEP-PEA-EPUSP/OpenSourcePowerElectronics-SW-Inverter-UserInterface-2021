@@ -34,8 +34,6 @@
             this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.comboBox_porta = new System.Windows.Forms.ComboBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.textBox5 = new System.Windows.Forms.TextBox();
             this.button_iniciar = new System.Windows.Forms.Button();
             this.textBox8 = new System.Windows.Forms.TextBox();
             this.textBox10 = new System.Windows.Forms.TextBox();
@@ -107,24 +105,6 @@
             this.comboBox_porta.Size = new System.Drawing.Size(117, 23);
             this.comboBox_porta.TabIndex = 2;
             this.comboBox_porta.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
-            // 
-            // textBox4
-            // 
-            this.textBox4.Location = new System.Drawing.Point(50, 429);
-            this.textBox4.Multiline = true;
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(171, 20);
-            this.textBox4.TabIndex = 4;
-            this.textBox4.Visible = false;
-            // 
-            // textBox5
-            // 
-            this.textBox5.Location = new System.Drawing.Point(254, 429);
-            this.textBox5.Multiline = true;
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(171, 20);
-            this.textBox5.TabIndex = 5;
-            this.textBox5.Visible = false;
             // 
             // button_iniciar
             // 
@@ -217,7 +197,7 @@
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox2.Location = new System.Drawing.Point(50, 263);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(400, 111);
+            this.groupBox2.Size = new System.Drawing.Size(400, 113);
             this.groupBox2.TabIndex = 15;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Experimento";
@@ -226,11 +206,9 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(484, 461);
+            this.ClientSize = new System.Drawing.Size(484, 420);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox_comunicacao);
-            this.Controls.Add(this.textBox4);
-            this.Controls.Add(this.textBox5);
             this.Controls.Add(textBox_titulo);
             this.Name = "PaginaInicial";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -250,8 +228,6 @@
         private System.IO.Ports.SerialPort serialPort1;
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.ComboBox comboBox_porta;
-        private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.TextBox textBox5;
         private System.Windows.Forms.Button button_iniciar;
         private System.Windows.Forms.TextBox textBox8;
         private System.Windows.Forms.TextBox textBox10;

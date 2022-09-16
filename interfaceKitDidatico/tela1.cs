@@ -16,8 +16,10 @@ namespace interfaceKitDidatico
         string auxIndiceMod = "null";
         string auxPulsosCiclo = "null";
 
+
         //Variáveis para a montagem do pacote
         byte[] buffer = new byte[32];
+        byte[] buffer2 = new byte[10];
         uint Byte1;
         uint Byte2;
         uint Byte3;
@@ -28,8 +30,8 @@ namespace interfaceKitDidatico
         uint Byte8;
 
         //Matrizes com valores de
-        uint[,] array30 = new uint[5, 4] { { 35000, 1, 0, 1 }, { 35000, 0, 0, 1 }, { 23000, 0, 0, 1 }, { 17500, 0, 0, 1 }, { 14000, 0, 0, 1 } };
-        uint[,] array60 = new uint[5, 4] { { 35000, 3, 0, 1 }, { 35000, 1, 0, 1 }, { 46666, 0, 0, 1 }, { 35000, 0, 0, 1 }, { 28000, 0, 0, 1 } };
+        uint[,] array30 = new uint[5, 4] { { 35000, 4, 2, 0 }, { 35000, 2, 2, 0 }, { 46666, 1, 2, 0 }, { 35000, 0, 2, 0 }, { 28000, 1, 2, 0 } };
+        uint[,] array60 = new uint[5, 4] { { 35000, 2, 2, 0 }, { 35000, 1, 2, 0 }, { 23000, 1, 2, 0 }, { 17500, 1, 2, 0 }, { 14000, 1, 2, 0 } };
 
         //Variáveis de resposta
         int answer_type;
@@ -63,13 +65,22 @@ namespace interfaceKitDidatico
                 groupBox2.Enabled = true; //Habilita "Execução" (botão "Liga" habilitado)
                 groupBox1.Enabled = false; //Desabilita "Seleção de Dados"
 
-                answer_type = PaginaInicial.answer_type;
-                no_exp = PaginaInicial.no_exp;
-                status = PaginaInicial.status;
-                inverter_enable = PaginaInicial.inverter_enable;   
-                PWM_foundation_update = PaginaInicial.PWM_foundation_update;
-                PWM_counter_update = PaginaInicial.PWM_counter_update;
-                DAC_update = PaginaInicial.DAC_update;
+                buffer2 = PaginaInicial.buffer2;
+                //Console.WriteLine("Pacote recebido:");
+                //Console.WriteLine(Convert.ToString(buffer2[0], toBase: 2));
+                //Console.WriteLine(Convert.ToString(buffer2[1], toBase: 2));
+
+
+                answer_type = Convert.ToInt16(buffer2[0] >> 7);
+                no_exp = Convert.ToInt16((buffer2[0] & 01111000) >> 3);
+                status = Convert.ToInt16(buffer2[0] & 00000111);
+                inverter_enable = Convert.ToInt16(buffer2[1] >> 7);
+                PWM_foundation_update = Convert.ToInt16((buffer2[1] & 01000000) >> 6);
+                PWM_counter_update = Convert.ToInt16((buffer2[1] & 00100000) >> 5);
+                DAC_update = Convert.ToInt16((buffer2[1] & 00010000) >> 4);
+
+
+
 
             }
 
@@ -96,27 +107,27 @@ namespace interfaceKitDidatico
         //-----Atualização de informações do pacote: Liga Inversor-----//
 
             // Byte [2:1] - Inversor enable pin (ligado)
-            Byte2 = Byte2 | (1 << 7);
+            Byte2 = Byte2 | 1;
 
             //Byte [2:2] - Request foundation update
-            Byte2 = Byte2 | (0 << 6);
+            Byte2 = Byte2 | (0 << 1);
 
             //Byte [2:8] - Request PWM counter configuration update
-            Byte2 = Byte2 | 0;
+            Byte2 = Byte2 | (0 << 7);
 
             //Byte [7:1] - Request modulation update
-            Byte7 = Byte7 | (0 << 7);
+            Byte7 = Byte7 | 0;
 
         //----------Registro dos bytes no pacote----------//
 
-            buffer[2] = Convert.ToByte(Byte2);
-            buffer[7] = Convert.ToByte(Byte7);
+            buffer[1] = Convert.ToByte(Byte2);
+            buffer[6] = Convert.ToByte(Byte7);
 
-            Console.WriteLine(Convert.ToString(buffer[2], toBase: 2)); //linha para testes
-            Console.WriteLine(Convert.ToString(buffer[7], toBase: 2)); //linha para testes
+            //Console.WriteLine(Convert.ToString(buffer[2], toBase: 2)); //linha para testes
+            //Console.WriteLine(Convert.ToString(buffer[7], toBase: 2)); //linha para testes
 
-            PaginaInicial.buffer[2] = buffer[2];
-            PaginaInicial.buffer[7] = buffer[7];
+            PaginaInicial.buffer[1] = buffer[1];
+            PaginaInicial.buffer[6] = buffer[6];
         }
 
         private void aquisicao_Click(object sender, EventArgs e)
@@ -124,11 +135,11 @@ namespace interfaceKitDidatico
             //-----Atualização de informações do pacote: Pede aquisição-----//
 
             //Byte [1:1] - Packet type (0: Command / 1: Data request)
-            Byte1 = Byte1 | (1 << 7);
+            Byte1 = Byte1 | 1;
 
-            buffer[1] = Convert.ToByte(Byte1);
-            Console.WriteLine(Convert.ToString(buffer[1], toBase: 2)); //linha para testes
-            PaginaInicial.buffer[1] = buffer[1];
+            buffer[0] = Convert.ToByte(Byte1);
+            //Console.WriteLine(Convert.ToString(buffer[1], toBase: 2)); //linha para testes
+            PaginaInicial.buffer[0] = buffer[0];
 
             //Quando o pacote for do tipo data request, termos que adequar o tamanho do pacote
 
@@ -173,11 +184,12 @@ namespace interfaceKitDidatico
             //-----Atualização de informações do pacote: Desliga Inversor-----//
 
             // Byte [2:1] - Inversor enable pin (desligado)
-            Byte2 = Byte2 | (0 << 7);
+            Byte2 = Byte2 & 0b_1111_1110;
 
-            buffer[2] = Convert.ToByte(Byte2);
-            Console.WriteLine(Convert.ToString(buffer[2], toBase: 2)); //linha para testes
-            PaginaInicial.buffer[2] = buffer[2];
+            buffer[1] = Convert.ToByte(Byte2);
+            
+            PaginaInicial.buffer[1] = buffer[1];
+
         }
 
         private void finalizar_Click(object sender, EventArgs e)
@@ -234,7 +246,7 @@ namespace interfaceKitDidatico
 
             //Byte [1:2-5] - Exp. number
             uint numeroExp = 2;
-            Byte1 = Byte1 | (numeroExp << 3);
+            Byte1 = Byte1 | (numeroExp << 1);
 
             //Byte [1:6-8] - Subparte do experimento
             //Não se aplica a esse experimento
@@ -243,34 +255,34 @@ namespace interfaceKitDidatico
             //----------Definições Byte [2]----------//
 
             //Byte [2:1] - Inversor enable pin
-            Byte2 = 0b_0000_0000;
+            Byte2 = 0b_0000_0000; //MUDAR ISSO DEPOIS
 
-            //Byte [2:2] - Request foundation update ***
+            //Byte [2:2] - Request foundation update (0: não houve mudança no parâmetro | 1: houve mudnaça)
             if (auxNivelPWM != NivelPWM.Text)
             {
-                Byte2 = 0b_0100_0000;
+                Byte2 = Byte2 | (1 << 1);
             }
-            else Byte2 = 0b_0000_0000;
+            else Byte2 = Byte2 | (0 << 1);
 
             //Byte [2:3-6] - PWM Polarity (2 níveis --> Ch1=0 e Ch2=1 | 3 níveis --> Ch1=Ch2=0)
             if (NivelPWM.Text == "2 níveis")
             {
                 uint Ch2 = 1;
-                Ch2 = Ch2 << 4;
+                Ch2 = Ch2 << 2;
                 Byte2 = Byte2 | Ch2;
             }
 
             //Byte [2:7] - Repetition counter (Single update --> 1 | double update --> 0)
-            Byte2 = Byte2 | (RCR << 1);
+            Byte2 = Byte2 | (RCR << 6);
 
-            //Byte [2:8] - Request PWM counter configuration update ***  
+            //Byte [2:8] - Request PWM counter configuration update (0: não houve mudança no parâmetro | 1: houve mudnaça) 
             uint PWMcountUpdate;
             if (auxFrequenciaMod != FrequenciaMod.Text || auxPulsosCiclo != PulsosCiclo.Text)
             {
                 PWMcountUpdate = 1;
             }
             else PWMcountUpdate = 0;
-            Byte2 = Byte2 | PWMcountUpdate;
+            Byte2 = Byte2 | (PWMcountUpdate << 7);
 
             //----------Definições Byte [3]: ARR (high)----------//
 
@@ -287,10 +299,10 @@ namespace interfaceKitDidatico
 
             //Byte [5:1-4] - PWM prescaler value (PSC)
             Byte5 = 0b_0000_0000;
-            Byte5 = PSC << 4;
+            Byte5 = PSC;
 
             //Byte [5:5-8] - PWM clock divider (TIM1)
-            Byte5 = Byte5 | CKD;
+            Byte5 = Byte5 | (CKD << 4);
 
             //----------Definições Byte [6]----------//
 
@@ -306,14 +318,18 @@ namespace interfaceKitDidatico
             Byte7 = 0b_0000_0000;
             if (auxIndiceMod != IndiceMod.Text)
             {
-                Byte7 = Byte7 | (1 << 7);
+                Byte7 = Byte7 | 1;
             }
 
             //Byte [7:2] - Número de níveis - {0: 2 níveis / 1: 3 níveis}
-            if (NivelPWM.Text == "3 níveis") Byte7 = Byte7 | (1 << 6);
+            if (NivelPWM.Text == "3 níveis") Byte7 = Byte7 | (1 << 1);
 
             //Byte [7:3-8] - Frequência da moduladora - {30 ou 60 Hz}
-            Byte7 = Byte7 | (Convert.ToUInt16(FrequenciaMod.Text));
+            if (Convert.ToUInt16(FrequenciaMod.Text) == 30)
+            {
+                Byte7 = Byte7 | (30 << 2);
+            }
+            else Byte7 = Byte7 | (60 << 2);
 
             //----------Definições Byte [8]----------//
 
@@ -323,16 +339,18 @@ namespace interfaceKitDidatico
 
             //----------Registro dos bytes no pacote----------//
 
-            buffer[1] = Convert.ToByte(Byte1);
-            buffer[2] = Convert.ToByte(Byte2);
-            buffer[3] = Convert.ToByte(Byte3);
-            buffer[4] = Convert.ToByte(Byte4);
-            buffer[5] = Convert.ToByte(Byte5);
-            buffer[6] = Convert.ToByte(Byte6);
-            buffer[7] = Convert.ToByte(Byte7);
-            buffer[8] = Convert.ToByte(Byte8);
+            buffer[0] = Convert.ToByte(Byte1);
+            buffer[1] = Convert.ToByte(Byte2);
+            buffer[2] = Convert.ToByte(Byte3);
+            buffer[3] = Convert.ToByte(Byte4);
+            buffer[4] = Convert.ToByte(Byte5);
+            buffer[5] = Convert.ToByte(Byte6);
+            buffer[6] = Convert.ToByte(Byte7);
+            buffer[7] = Convert.ToByte(Byte8);
 
             //----------Linhas para testes----------//
+            Console.WriteLine("Pacote enviado:");
+            Console.WriteLine(Convert.ToString(buffer[0], toBase: 2));
             Console.WriteLine(Convert.ToString(buffer[1], toBase: 2));
             Console.WriteLine(Convert.ToString(buffer[2], toBase: 2));
             Console.WriteLine(Convert.ToString(buffer[3], toBase: 2));
@@ -340,7 +358,6 @@ namespace interfaceKitDidatico
             Console.WriteLine(Convert.ToString(buffer[5], toBase: 2));
             Console.WriteLine(Convert.ToString(buffer[6], toBase: 2));
             Console.WriteLine(Convert.ToString(buffer[7], toBase: 2));
-            Console.WriteLine(Convert.ToString(buffer[8], toBase: 2));
 
             //----------Envio do buffer para Pagina Inicial----------//
             PaginaInicial.buffer = buffer;
