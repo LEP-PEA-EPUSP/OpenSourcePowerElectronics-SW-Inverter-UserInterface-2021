@@ -351,14 +351,14 @@ namespace interfaceKitDidatico
             buffer[7] = Convert.ToByte(Byte8);
 
             //----------Linhas para testes----------//
-            Console.WriteLine("Pacote enviado:");
+            //Console.WriteLine("Pacote enviado:");
             //Console.WriteLine(Convert.ToString(buffer[0], toBase: 2));
             //Console.WriteLine(Convert.ToString(buffer[1], toBase: 2));
             //Console.WriteLine(Convert.ToString(buffer[2], toBase: 2));
             //Console.WriteLine(Convert.ToString(buffer[3], toBase: 2));
             //Console.WriteLine(Convert.ToString(buffer[4], toBase: 2));
             //Console.WriteLine(Convert.ToString(buffer[5], toBase: 2));
-            Console.WriteLine(Convert.ToString(buffer[6], toBase: 2));
+            //Console.WriteLine(Convert.ToString(buffer[6], toBase: 2));
             //Console.WriteLine(Convert.ToString(buffer[7], toBase: 2));
 
             //----------Envio do buffer para Pagina Inicial----------//

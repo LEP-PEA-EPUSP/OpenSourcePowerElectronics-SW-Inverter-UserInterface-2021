@@ -61,7 +61,13 @@ namespace interfaceKitDidatico
             textBox_status.Text = "Verificando";
             try
             {
-                comunicacao(); //Chama função de comunicação
+                int retry = 0;
+                while (retry < 3)
+                {
+                    comunicacao(); //Chama função de comunicação
+                    retry++;
+                    if (erro_dados == false) break;
+                }
             }
             catch
             {
@@ -108,8 +114,6 @@ namespace interfaceKitDidatico
             {
                 //Registra tela escolhida
                 tela_escolhida = comboBox_tela.Text; 
-                //Função timer é ligada
-                //timer1.Enabled = true;
 
                 //Abertura de telas
                 if (tela_escolhida == "Tela 1 - Conversor monofásico")
@@ -163,34 +167,15 @@ namespace interfaceKitDidatico
             {
                 
             }
-            /*
-            Console.WriteLine("Pacote enviado:");
-            int j;
-            for (j = 0; j<8; j++)
-            {
-                Console.WriteLine(Convert.ToString(buffer[j], toBase: 2));
-            }
-            Console.WriteLine("Pacote recebido:");
-            int i;
-            for (i = 0; i < 8; i++)
-            {
-                Console.WriteLine(Convert.ToString(buffer2[i], toBase: 2));
-            }
-            */
+            
+            
             answer_type = Convert.ToInt16(buffer2[0] >> 7);
-            //if (answer_type == 1)
-           // {
-            //    serialPort1.Read(buffer3, 0, 4101);
-                //parte de aquisição
-          //  }
 
         }
 
         //Teste de Comunicacao
         public void comunicacao()
         {
-            //Array.Clear(buffer, 0, 32);
-            //Array.Clear(buffer2, 0, 32);
             erro_dados = false;
             int i;
             //Repete procedimento de envio e recebimento 10 vezes
@@ -205,19 +190,11 @@ namespace interfaceKitDidatico
 
                 //Envio do pacote de teste
                 serialPort1.Write(buffer, 0, 32);
-                Console.WriteLine("Dados enviados:");
-                Console.WriteLine(buffer[0]);
-                Console.WriteLine(buffer[16]);
-                Console.WriteLine(buffer[31]);
 
                 Task.Delay(100);
 
                 //Recebimento dos dados retribuidos pelo ARM
                 serialPort1.Read(buffer2, 0, 10);
-                Console.WriteLine("Dados recebidos:");
-                Console.WriteLine(buffer[0]);
-                Console.WriteLine(buffer[5]);
-                Console.WriteLine(buffer[9]);
 
                 //Confere se dados devolvidos estão consistentes
                 for (j = 0; j < 10; j++)
@@ -226,8 +203,8 @@ namespace interfaceKitDidatico
                     if (buffer2[j] != 4)
                     {
                         erro_dados = true;
-                        Console.WriteLine(Convert.ToString(buffer2[j]));
                     }
+                    else erro_dados = false;
                 }
                 contador++;
             }
@@ -243,14 +220,14 @@ namespace interfaceKitDidatico
             // 2 --> Erro de escolha de porta serial errada
             else if (error_type == 2)
             {
-                MessageBox.Show("As opções de solução são: \n 1.Confira se a placa está conectada ao computador e se você selecionou a porta COM certa. Entre no 'Gerenciado de Dispositivos' e veja em 'Portas (COM e LPT)' qual porta está sendo utilizada na comunicação com a placa (USP Serial Port). \n 2.Certifique-se de que o inversor está desligado. Pressione o botão preto (reset) da placa Discovery (microcontrolador). Caso tenha dúvidas, peça ajuda a um monitor ou ao professor.", "Erro: Falha ao estabelecer comunicação.");
+                MessageBox.Show("As opções de solução são: \n \n 1.Confira se a placa está conectada ao computador e se você selecionou a porta COM certa. Entre no 'Gerenciado de Dispositivos' e veja em 'Portas (COM e LPT)' qual porta está sendo utilizada na comunicação com a placa (USB Serial Port). \n \n 2.Certifique-se de que o inversor está desligado. Pressione o botão preto (reset) da placa Discovery (microcontrolador). Caso tenha dúvidas, peça ajuda a um monitor ou ao professor.", "Erro: Falha ao estabelecer comunicação.");
                 textBox_status.Text = "Erro";
                 textBox_status.BackColor = Color.Salmon;
             }
             // 3 --> Dados incosistentes
             else if (error_type == 3)
             {
-                MessageBox.Show("Dados enviados pelo ARM estão inconsistentes. As opções de solução são: \n 1.Tente clicar em 'Iniciar comunicação' novamente. Caso não funionar, tente a opção abaixo. \n 2.Certifique-se de que o inversor está desligado. Pressione o botão preto (reset) da placa Discovery (microcontrolador). Caso tenha dúvidas, peça ajuda de um monitor ou do professor.", "Erro: Falha na comunicação");
+                MessageBox.Show("Dados enviados pelo ARM estão inconsistentes. As opções de solução são: \n \n 1.Tente clicar em 'Iniciar comunicação' novamente. Caso não funionar, tente a opção abaixo. \n \n 2.Certifique-se de que o inversor está desligado. Pressione o botão preto (reset) da placa Discovery (microcontrolador). Caso tenha dúvidas, peça ajuda de um monitor ou do professor.", "Erro: Falha na comunicação");
                 textBox_status.Text = "Erro";
                 textBox_status.BackColor = Color.Salmon;
             }
@@ -261,25 +238,20 @@ namespace interfaceKitDidatico
                 if (!alerta_aberto)
                 {
                     alerta_aberto = true;
-                    DialogResult result = MessageBox.Show("1.Conecte novamente a placa e clique em 'Repetir', para tentar reestabelecer a conexão. \n 2.Clique em 'Cancelar' para fechar a interface.", "Erro: Porta desconectada", MessageBoxButtons.RetryCancel);
-                    if (result == DialogResult.Retry)
-                    {
-                        try
-                        {
-                            serialPort1.Open();
-                        }
-                        catch
-                        {
-                            MessageBox.Show("Erro: Não foi possível reconectar a placa. Tente novamente: Conecte a placa, se já estiver conectada clique em 'OK'.");
-                        }
-                        alerta_aberto = false;
-                        result = 0;
-                    }
-                    else if (result == DialogResult.Cancel)
+                    DialogResult result = MessageBox.Show("ATENÇÃO: Se o INVERSOR estiver LIGADO, desligue-o imediatamente!!! Após isso siga os passos: \n \n 1.Conecte novamente a placa ao computador \n \n 2.Pressione o botão preto (reset) da placa Discovery (microcontrolador). Caso tenha dúvidas, peça ajuda de um monitor ou do professor. \n \n 3.Abra o aplicativo da IHM novamente, e siga o procedimento de conexão. \n \n \n Você conseguiu desligar o inversor?", "Erro: PORTA DESCONECTADA", MessageBoxButtons.YesNo);
+                    if (result == DialogResult.Yes)
                     {
                         Environment.Exit(0);
                     }
+                    else if (result == DialogResult.No)
+                    {
+                        alerta_aberto = false;
+                        result = 0;
+                    }
+
                 }
+               
+                
             }
         }
     }

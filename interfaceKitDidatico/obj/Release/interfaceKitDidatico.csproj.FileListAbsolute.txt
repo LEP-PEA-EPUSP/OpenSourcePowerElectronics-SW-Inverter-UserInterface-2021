@@ -1,0 +1,14 @@
+C:\Users\rebec\Projetos\IHM\interfaceKitDidatico\bin\Release\interfaceKitDidatico.exe.config
+C:\Users\rebec\Projetos\IHM\interfaceKitDidatico\bin\Release\interfaceKitDidatico.exe
+C:\Users\rebec\Projetos\IHM\interfaceKitDidatico\bin\Release\interfaceKitDidatico.pdb
+C:\Users\rebec\Projetos\IHM\interfaceKitDidatico\obj\Release\interfaceKitDidatico.csproj.AssemblyReference.cache
+C:\Users\rebec\Projetos\IHM\interfaceKitDidatico\obj\Release\interfaceKitDidatico.csproj.SuggestedBindingRedirects.cache
+C:\Users\rebec\Projetos\IHM\interfaceKitDidatico\obj\Release\interfaceKitDidatico.abrirArquivoCSV.resources
+C:\Users\rebec\Projetos\IHM\interfaceKitDidatico\obj\Release\interfaceKitDidatico.Tela1.resources
+C:\Users\rebec\Projetos\IHM\interfaceKitDidatico\obj\Release\interfaceKitDidatico.PaginaInicial.resources
+C:\Users\rebec\Projetos\IHM\interfaceKitDidatico\obj\Release\interfaceKitDidatico.Properties.Resources.resources
+C:\Users\rebec\Projetos\IHM\interfaceKitDidatico\obj\Release\interfaceKitDidatico.Tela2.resources
+C:\Users\rebec\Projetos\IHM\interfaceKitDidatico\obj\Release\interfaceKitDidatico.csproj.GenerateResource.cache
+C:\Users\rebec\Projetos\IHM\interfaceKitDidatico\obj\Release\interfaceKitDidatico.csproj.CoreCompileInputs.cache
+C:\Users\rebec\Projetos\IHM\interfaceKitDidatico\obj\Release\interfaceKitDidatico.exe
+C:\Users\rebec\Projetos\IHM\interfaceKitDidatico\obj\Release\interfaceKitDidatico.pdb
