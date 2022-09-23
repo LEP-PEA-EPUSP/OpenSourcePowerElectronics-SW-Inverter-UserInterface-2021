@@ -30,8 +30,8 @@ namespace interfaceKitDidatico
         uint Byte8;
 
         //Matrizes com valores de
-        uint[,] array30 = new uint[5, 4] { { 35000, 4, 2, 0 }, { 35000, 2, 2, 0 }, { 46666, 1, 2, 0 }, { 35000, 0, 2, 0 }, { 28000, 1, 2, 0 } };
-        uint[,] array60 = new uint[5, 4] { { 35000, 2, 2, 0 }, { 35000, 1, 2, 0 }, { 23000, 1, 2, 0 }, { 17500, 1, 2, 0 }, { 14000, 1, 2, 0 } };
+        uint[,] array30 = new uint[5, 4] { { 35000, 3, 1, 0 }, { 23333, 2, 1, 0 }, { 46666, 0, 1, 0 }, { 35000, 0, 1, 0 }, { 28000, 0, 1, 0 } };
+        uint[,] array60 = new uint[5, 4] { { 35000, 1, 1, 0 }, { 35000, 0, 1, 0 }, { 23000, 0, 1, 0 }, { 17500, 0, 1, 0 }, { 14000, 0, 1, 0 } };
 
         //Variáveis de resposta
         int answer_type;
@@ -255,7 +255,7 @@ namespace interfaceKitDidatico
             //----------Definições Byte [2]----------//
 
             //Byte [2:1] - Inversor enable pin
-            Byte2 = 0b_0000_0000; //MUDAR ISSO DEPOIS
+            Byte2 = 0b_0000_0000; 
 
             //Byte [2:2] - Request foundation update (0: não houve mudança no parâmetro | 1: houve mudnaça)
             if (auxNivelPWM != NivelPWM.Text)
@@ -316,14 +316,16 @@ namespace interfaceKitDidatico
 
             //Byte [7:1] - Request modulation update ***
             Byte7 = 0b_0000_0000;
-            if (auxIndiceMod != IndiceMod.Text)
+            if (auxIndiceMod != IndiceMod.Text || auxNivelPWM != NivelPWM.Text || auxFrequenciaMod != FrequenciaMod.Text)
             {
                 Byte7 = Byte7 | 1;
             }
 
             //Byte [7:2] - Número de níveis - {0: 2 níveis / 1: 3 níveis}
-            if (NivelPWM.Text == "3 níveis") Byte7 = Byte7 | (1 << 1);
-
+            if (NivelPWM.Text == "3 níveis")
+            {
+                Byte7 = Byte7 | (1 << 1);
+            }
             //Byte [7:3-8] - Frequência da moduladora - {30 ou 60 Hz}
             if (Convert.ToUInt16(FrequenciaMod.Text) == 30)
             {
@@ -350,14 +352,14 @@ namespace interfaceKitDidatico
 
             //----------Linhas para testes----------//
             Console.WriteLine("Pacote enviado:");
-            Console.WriteLine(Convert.ToString(buffer[0], toBase: 2));
-            Console.WriteLine(Convert.ToString(buffer[1], toBase: 2));
-            Console.WriteLine(Convert.ToString(buffer[2], toBase: 2));
-            Console.WriteLine(Convert.ToString(buffer[3], toBase: 2));
-            Console.WriteLine(Convert.ToString(buffer[4], toBase: 2));
-            Console.WriteLine(Convert.ToString(buffer[5], toBase: 2));
+            //Console.WriteLine(Convert.ToString(buffer[0], toBase: 2));
+            //Console.WriteLine(Convert.ToString(buffer[1], toBase: 2));
+            //Console.WriteLine(Convert.ToString(buffer[2], toBase: 2));
+            //Console.WriteLine(Convert.ToString(buffer[3], toBase: 2));
+            //Console.WriteLine(Convert.ToString(buffer[4], toBase: 2));
+            //Console.WriteLine(Convert.ToString(buffer[5], toBase: 2));
             Console.WriteLine(Convert.ToString(buffer[6], toBase: 2));
-            Console.WriteLine(Convert.ToString(buffer[7], toBase: 2));
+            //Console.WriteLine(Convert.ToString(buffer[7], toBase: 2));
 
             //----------Envio do buffer para Pagina Inicial----------//
             PaginaInicial.buffer = buffer;

@@ -57,7 +57,7 @@
             titleE2.BackColor = System.Drawing.SystemColors.MenuBar;
             titleE2.CausesValidation = false;
             titleE2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            titleE2.Location = new System.Drawing.Point(50, 12);
+            titleE2.Location = new System.Drawing.Point(50, 26);
             titleE2.Name = "titleE2";
             titleE2.ReadOnly = true;
             titleE2.Size = new System.Drawing.Size(400, 29);
@@ -78,7 +78,7 @@
             this.groupBox1.Controls.Add(this.NivelPWM);
             this.groupBox1.Controls.Add(this.textBox1);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.Location = new System.Drawing.Point(50, 57);
+            this.groupBox1.Location = new System.Drawing.Point(50, 71);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(400, 205);
             this.groupBox1.TabIndex = 2;
@@ -235,7 +235,7 @@
             // buttonFinalizar
             // 
             this.buttonFinalizar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonFinalizar.Location = new System.Drawing.Point(50, 416);
+            this.buttonFinalizar.Location = new System.Drawing.Point(50, 438);
             this.buttonFinalizar.Name = "buttonFinalizar";
             this.buttonFinalizar.Size = new System.Drawing.Size(400, 31);
             this.buttonFinalizar.TabIndex = 7;
@@ -251,7 +251,7 @@
             this.groupBox2.Controls.Add(this.buttonAquisicao);
             this.groupBox2.Enabled = false;
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox2.Location = new System.Drawing.Point(50, 268);
+            this.groupBox2.Location = new System.Drawing.Point(50, 282);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(400, 133);
             this.groupBox2.TabIndex = 8;
@@ -279,7 +279,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(484, 461);
+            this.ClientSize = new System.Drawing.Size(484, 501);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.buttonFinalizar);
             this.Controls.Add(this.groupBox1);

@@ -99,7 +99,14 @@
             "COM5",
             "COM6",
             "COM7",
-            "COM8"});
+            "COM8",
+            "COM9",
+            "COM10",
+            "COM11",
+            "COM12",
+            "COM13",
+            "COM14",
+            "COM15"});
             this.comboBox_porta.Location = new System.Drawing.Point(18, 74);
             this.comboBox_porta.Name = "comboBox_porta";
             this.comboBox_porta.Size = new System.Drawing.Size(117, 23);
@@ -206,7 +213,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(484, 420);
+            this.ClientSize = new System.Drawing.Size(484, 499);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox_comunicacao);
             this.Controls.Add(textBox_titulo);

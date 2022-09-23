@@ -67,6 +67,7 @@ namespace interfaceKitDidatico
             {
                 ErrorHandler(2); // 1 --> erro de escolha de porta serial errada
             }
+            
 
             //Consolidação da verificação de comunicação 
             if (contador==10)
@@ -162,7 +163,7 @@ namespace interfaceKitDidatico
             {
                 
             }
-            
+            /*
             Console.WriteLine("Pacote enviado:");
             int j;
             for (j = 0; j<8; j++)
@@ -175,7 +176,7 @@ namespace interfaceKitDidatico
             {
                 Console.WriteLine(Convert.ToString(buffer2[i], toBase: 2));
             }
-            
+            */
             answer_type = Convert.ToInt16(buffer2[0] >> 7);
             //if (answer_type == 1)
            // {
@@ -209,7 +210,7 @@ namespace interfaceKitDidatico
                 Console.WriteLine(buffer[16]);
                 Console.WriteLine(buffer[31]);
 
-                Task.Delay(50);
+                Task.Delay(100);
 
                 //Recebimento dos dados retribuidos pelo ARM
                 serialPort1.Read(buffer2, 0, 10);
@@ -242,14 +243,14 @@ namespace interfaceKitDidatico
             // 2 --> Erro de escolha de porta serial errada
             else if (error_type == 2)
             {
-                MessageBox.Show("Confira se a placa está conectada ao computador, entre no 'Gerenciado de Dispositivos' e veja em 'Portas (COM e LPT)' qual porta está sendo utilizada na comunicação com a placa.", "Erro: Seleção da porta serial errada.");
+                MessageBox.Show("As opções de solução são: \n 1.Confira se a placa está conectada ao computador e se você selecionou a porta COM certa. Entre no 'Gerenciado de Dispositivos' e veja em 'Portas (COM e LPT)' qual porta está sendo utilizada na comunicação com a placa (USP Serial Port). \n 2.Certifique-se de que o inversor está desligado. Pressione o botão preto (reset) da placa Discovery (microcontrolador). Caso tenha dúvidas, peça ajuda a um monitor ou ao professor.", "Erro: Falha ao estabelecer comunicação.");
                 textBox_status.Text = "Erro";
                 textBox_status.BackColor = Color.Salmon;
             }
             // 3 --> Dados incosistentes
             else if (error_type == 3)
             {
-                MessageBox.Show("Dados enviados pelo ARM estão inconsistentes. As opções de solução são:/n 1.Tente clicar em 'Iniciar comunicação' novamente. Caso no funionar, tente a opção abaixo./n 2.Certifique-se de que o inversor está desligado (se precisar, peça ajuda do professor). Feche a interface e aperte o botão preto (reset) da placa Discovery (microcontrolador). Caso tenha dúvidas, peça ajuda de um monitor ou do professor.", "Erro: Falha na comunicação");
+                MessageBox.Show("Dados enviados pelo ARM estão inconsistentes. As opções de solução são: \n 1.Tente clicar em 'Iniciar comunicação' novamente. Caso não funionar, tente a opção abaixo. \n 2.Certifique-se de que o inversor está desligado. Pressione o botão preto (reset) da placa Discovery (microcontrolador). Caso tenha dúvidas, peça ajuda de um monitor ou do professor.", "Erro: Falha na comunicação");
                 textBox_status.Text = "Erro";
                 textBox_status.BackColor = Color.Salmon;
             }
@@ -260,7 +261,7 @@ namespace interfaceKitDidatico
                 if (!alerta_aberto)
                 {
                     alerta_aberto = true;
-                    DialogResult result = MessageBox.Show("Conecte novamente a placa e clique em 'Retry', para tentar reestabelecer a conexão. Clique em 'Cancel' para fechar a interface.", "Erro: Porta desconectada", MessageBoxButtons.RetryCancel);
+                    DialogResult result = MessageBox.Show("1.Conecte novamente a placa e clique em 'Repetir', para tentar reestabelecer a conexão. \n 2.Clique em 'Cancelar' para fechar a interface.", "Erro: Porta desconectada", MessageBoxButtons.RetryCancel);
                     if (result == DialogResult.Retry)
                     {
                         try
@@ -269,7 +270,7 @@ namespace interfaceKitDidatico
                         }
                         catch
                         {
-                            MessageBox.Show("Erro: Não foi possível reconectar a placa. Tente novamente: Conecte novamente a placa e clique em 'OK'.");
+                            MessageBox.Show("Erro: Não foi possível reconectar a placa. Tente novamente: Conecte a placa, se já estiver conectada clique em 'OK'.");
                         }
                         alerta_aberto = false;
                         result = 0;
