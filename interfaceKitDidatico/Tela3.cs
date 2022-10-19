@@ -1,20 +1,27 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.IO;
 using System.Windows.Forms;
 
 namespace interfaceKitDidatico
 {
-    public partial class Tela2 : Form
+    public partial class Tela3 : Form
     {
         private PaginaInicial parent;
         public int tamanho_palavra;
         bool inversor = false;
 
         //Variáveis auxiliares --> Objetivo: Saber se o usuário mudou ou não as entradas do experimento
-        string auxNivelPWM = null;
-        string auxFrequenciaMod = null;
-        string auxIndiceMod = null;
-        string auxPulsosCiclo = null;
+        string auxNivelPWM = "null";
+        string auxFrequenciaMod = "null";
+        string auxDutyCycle = "null";
+        string auxPulsosCiclo = "null";
 
 
         //Variáveis para a montagem do pacote
@@ -29,10 +36,6 @@ namespace interfaceKitDidatico
         uint Byte7;
         uint Byte8;
 
-        //Matrizes com valores de ARR, PSC, RCR e CKD
-        uint[,] array30 = new uint[5, 4] { { 56000, 4, 0, 0 }, { 46667, 2, 0, 0 }, { 46667, 1, 0, 0 }, { 35000, 1, 0, 0 }, { 28000, 1, 0, 0 } };
-        uint[,] array60 = new uint[5, 4] { { 35000, 3, 0, 0 }, { 35000, 1, 0, 0 }, { 23333, 1, 0, 0 }, { 17500, 1, 0, 0 }, { 14000, 1, 0, 0 } };
-
         //Variáveis de resposta
         int answer_type;
         int answer_no_Program;
@@ -42,7 +45,7 @@ namespace interfaceKitDidatico
         int answer_pwmCounterUpdate;
         int answer_dacUpdate;
 
-        public Tela2(PaginaInicial parent, int tamanho_palavra)
+        public Tela3(PaginaInicial parent, int tamanho_palavra)
         {
             this.parent = parent;
             InitializeComponent();
@@ -52,14 +55,19 @@ namespace interfaceKitDidatico
         private void next_Click(object sender, EventArgs e)
         {
             //Verifica se os dados não foram selecionados
-            if (string.IsNullOrEmpty(SequenceZero.Text) || string.IsNullOrEmpty(FrequenciaMod.Text) || string.IsNullOrEmpty(IndiceMod.Text) || string.IsNullOrEmpty(PulsosCiclo.Text))
+            if (string.IsNullOrEmpty(DutyCycle.Text))
             {
                 //Mensagem de erro caso usuário não tenha selecionado todos os dados
                 MessageBox.Show("Erro: Selecione todos os dados necessários para o Experimento.");
             }
+            else if (Convert.ToInt16(DutyCycle.Text) < 0 || Convert.ToInt16(DutyCycle.Text) > 100)
+            {
+                //Mensagem de erro caso usuário não tenha selecionado todos os dados
+                MessageBox.Show("Erro: Insira um valor de 0 a 100 (%) para o Duty Cycle.");
+            }
             else
             {
-                PacketAssemble_T2();
+                PacketAssemble_T1();
 
                 //Intertravamento do botões
                 groupBox2.Enabled = true; //Habilita "Execução" (botão "Liga" habilitado)
@@ -209,32 +217,8 @@ namespace interfaceKitDidatico
             }
         }
 
-        private void PacketAssemble_T2()
+        private void PacketAssemble_T1()
         {
-            uint ARR = 0;
-            uint PSC = 0;
-            uint RCR = 0;
-            uint CKD = 0;
-
-            int auxPulsos = Convert.ToInt32(PulsosCiclo.Text);
-            auxPulsos = (auxPulsos / 10) - 1;
-
-            if (FrequenciaMod.Text == "30")
-            {
-                ARR = array30[auxPulsos, 0];
-                PSC = array30[auxPulsos, 1];
-                RCR = array30[auxPulsos, 2];
-                CKD = array30[auxPulsos, 3];
-
-            }
-            else if (FrequenciaMod.Text == "60")
-            {
-                ARR = array60[auxPulsos, 0];
-                PSC = array60[auxPulsos, 1];
-                RCR = array60[auxPulsos, 2];
-                CKD = array60[auxPulsos, 3];
-
-            }
 
             //----------Definições Byte [1]----------//
 
@@ -246,8 +230,8 @@ namespace interfaceKitDidatico
             Byte1 = Byte1 | (no_Program << 1);
 
             //Byte [1:6-8] - Subparte do experimento
-            uint InternalSubset = 2;
-            Byte1 = Byte1 | (InternalSubset << 4);
+            uint InternalSubset = 3;
+            Byte1 = Byte1 | (InternalSubset << 5);
 
             //----------Definições Byte [2]----------//
 
@@ -261,40 +245,34 @@ namespace interfaceKitDidatico
             }
             else Byte2 = Byte2 | (0 << 1);
 
-            //Byte [2:3-6] - PWM Polarity (2 níveis --> Ch1=0 e Ch2=1 | 3 níveis --> Ch1=Ch2=0)
-                //Sempre vai ser 3 níveis --> todos chanels = 0
+            //Byte [2:3-6] - Polarity (Ch1=Ch2=Ch3=Ch4=1)
+            Byte2 = Byte2 | (1 << 2);
+            Byte2 = Byte2 | (1 << 3);
+            Byte2 = Byte2 | (1 << 4);
+            Byte2 = Byte2 | (1 << 5);
 
             //Byte [2:7] - Repetition counter (Single update --> 1 | double update --> 0)
-            Byte2 = Byte2 | (RCR << 6);
+                //Não se aplica
 
             //Byte [2:8] - Request PWM counter configuration update (0: não houve mudança no parâmetro | 1: houve mudnaça) 
-            uint PWMcountUpdate;
-            if (auxFrequenciaMod != FrequenciaMod.Text || auxPulsosCiclo != PulsosCiclo.Text)
-            {
-                PWMcountUpdate = 1;
-            }
-            else PWMcountUpdate = 0;
-            Byte2 = Byte2 | (PWMcountUpdate << 7);
+                //Não se aplica
 
             //----------Definições Byte [3]: ARR (high)----------//
 
-            Byte3 = 0b_0000_0000;
-            Byte3 = (ARR >> 8) & 255;
+            Byte3 = 0b_0000_0000; //Não se aplica
 
 
             //----------Definições Byte [4]: ARR (low)----------//
 
-            Byte4 = 0b_0000_0000;
-            Byte4 = ARR & 255;
+            Byte4 = 0b_0000_0000; //Não se aplica
 
             //----------Definições Byte [5]----------//
 
             //Byte [5:1-4] - PWM prescaler value (PSC)
-            Byte5 = 0b_0000_0000;
-            Byte5 = PSC;
+            Byte5 = 0b_0000_0000; //Não se aplica
 
             //Byte [5:5-8] - PWM clock divider (TIM1)
-            Byte5 = Byte5 | (CKD << 4);
+                //Não se aplica
 
             //----------Definições Byte [6]----------//
 
@@ -308,21 +286,11 @@ namespace interfaceKitDidatico
 
             //Byte [7:1] - Request modulation update ***
             Byte7 = 0b_0000_0000;
-            if (auxIndiceMod != IndiceMod.Text || auxFrequenciaMod != FrequenciaMod.Text) Byte7 = Byte7 | 1;
+            if (auxDutyCycle != DutyCycle.Text) Byte7 = Byte7 | 1;
 
-            //Byte [7:2] - Injeção da sequência 0 - {0: off / 1: on}
-            if (SequenceZero.Text == "Desligado") Byte7 = Byte7 | (0 << 1);
-            else if (SequenceZero.Text == "Ligado") Byte7 = Byte7 | (1 << 1);
-
-            //Byte [7:3-8] - Frequência da moduladora - {30 ou 60 Hz}
-            if (FrequenciaMod.Text == "30") Byte7 = Byte7 | (30 << 2);
-            else if (FrequenciaMod.Text == "60") Byte7 = Byte7 | (60 << 2);
-
-            //----------Definições Byte [8]----------//
-
-            //Byte [8:1-8] - Índice de modulação
-            Byte8 = 0b_0000_0000;
-            Byte8 = Convert.ToUInt16(IndiceMod.Text);
+            //Byte [7:2-8] - Duty Cycle(%)
+            uint valorDutyCycle = Convert.ToUInt16(DutyCycle.Text);
+            Byte7 = Byte7 | (valorDutyCycle << 1);
 
             //----------Registro dos bytes no pacote----------//
 
@@ -333,7 +301,6 @@ namespace interfaceKitDidatico
             buffer[4] = Convert.ToByte(Byte5);
             buffer[5] = Convert.ToByte(Byte6);
             buffer[6] = Convert.ToByte(Byte7);
-            buffer[7] = Convert.ToByte(Byte8);
 
             //----------Linhas para testes----------//
             //Console.WriteLine("Pacote enviado:");
@@ -350,10 +317,8 @@ namespace interfaceKitDidatico
             PaginaInicial.buffer = buffer;
 
             //Registro de parâmetros
-            auxNivelPWM = "3 níveis";
-            auxFrequenciaMod = FrequenciaMod.Text;
-            auxIndiceMod = IndiceMod.Text;
-            auxPulsosCiclo = PulsosCiclo.Text;
+            auxDutyCycle = DutyCycle.Text;
+            auxNivelPWM = "1";
         }
     }
 }

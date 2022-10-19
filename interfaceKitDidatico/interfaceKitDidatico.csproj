@@ -89,6 +89,12 @@
     <Compile Include="Tela2.Designer.cs">
       <DependentUpon>Tela2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Tela3.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tela3.Designer.cs">
+      <DependentUpon>Tela3.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="abrirArquivoCSV.resx">
       <DependentUpon>abrirArquivoCSV.cs</DependentUpon>
     </EmbeddedResource>
@@ -110,6 +116,9 @@
     </Compile>
     <EmbeddedResource Include="Tela2.resx">
       <DependentUpon>Tela2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tela3.resx">
+      <DependentUpon>Tela3.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

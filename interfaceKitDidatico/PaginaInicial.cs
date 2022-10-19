@@ -116,7 +116,7 @@ namespace interfaceKitDidatico
                 tela_escolhida = comboBox_tela.Text; 
 
                 //Abertura de telas
-                if (tela_escolhida == "Tela 1 - Conversor monofásico")
+                if (tela_escolhida == "Tela 1 - Conversor Monofásico")
                 {
                     //Comandos para abrir a tela
                     Tela1 tela = new Tela1(this, tamanho_pacote_enviado);
@@ -127,7 +127,7 @@ namespace interfaceKitDidatico
 
                     tela_escolhida = "";
                 }
-                else if (tela_escolhida == "Tela 2 - Conversor trifásico")
+                else if (tela_escolhida == "Tela 2 - Conversor Trifásico")
                 {
                     //Comandos para abrir a tela
                     Tela2 tela = new Tela2(this, tamanho_pacote_enviado);
@@ -138,9 +138,18 @@ namespace interfaceKitDidatico
 
                     tela_escolhida = "";
                 }
+                else if (tela_escolhida == "Tela 3 - Duty Cycle Fixo")
+                {
+                    //Comandos para abrir a tela
+                    Tela3 tela = new Tela3(this, tamanho_pacote_enviado);
+                    tela.Show();
 
+                    //Impede que mexa na tela de Pagina Inicial após abertura do experimento
+                    Enabled = false;
+
+                    tela_escolhida = "";
+                }
             }
-
         }
 
         //Função timer - se repete durante todo uso do aplicativo (quando ativada)
@@ -154,6 +163,8 @@ namespace interfaceKitDidatico
             {
                 ErrorHandler(4); // 4 --> erro de desconexão da placa
             }
+
+            Console.WriteLine(Convert.ToString(buffer[1], toBase: 2));
 
             Task.Delay(50);
 
@@ -210,6 +221,7 @@ namespace interfaceKitDidatico
             }
         }
 
+        //Tratamento de Erros
         private void ErrorHandler(int error_type)
         {
             // 1 --> Erro de escolha de porta serial não utilizada

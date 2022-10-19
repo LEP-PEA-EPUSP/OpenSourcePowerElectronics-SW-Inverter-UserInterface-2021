@@ -82,3 +82,4 @@ C:\Users\rebec\Projetos\IHM\interfaceKitDidatico\obj\Debug\interfaceKitDidatico.
 C:\Users\rebec\Projetos\IHM\interfaceKitDidatico\obj\Debug\interfaceKitDidatico.exe
 C:\Users\rebec\Projetos\IHM\interfaceKitDidatico\obj\Debug\interfaceKitDidatico.pdb
 C:\Users\rebec\Projetos\IHM\interfaceKitDidatico\obj\Debug\interfaceKitDidatico.Tela2.resources
+C:\Users\rebec\Projetos\IHM\interfaceKitDidatico\obj\Debug\interfaceKitDidatico.Tela3.resources

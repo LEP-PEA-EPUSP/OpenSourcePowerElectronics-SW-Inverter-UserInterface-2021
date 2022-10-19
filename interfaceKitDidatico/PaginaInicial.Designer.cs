@@ -90,6 +90,7 @@
             // comboBox_porta
             // 
             this.comboBox_porta.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.comboBox_porta.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox_porta.FormattingEnabled = true;
             this.comboBox_porta.Items.AddRange(new object[] {
             "COM1",
@@ -148,10 +149,12 @@
             // 
             // comboBox_tela
             // 
+            this.comboBox_tela.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox_tela.FormattingEnabled = true;
             this.comboBox_tela.Items.AddRange(new object[] {
-            "Tela 1 - Conversor monofásico",
-            "Tela 2 - Conversor trifásico"});
+            "Tela 1 - Conversor Monofásico",
+            "Tela 2 - Conversor Trifásico",
+            "Tela 3 - Duty Cicle Fixo"});
             this.comboBox_tela.Location = new System.Drawing.Point(50, 56);
             this.comboBox_tela.Name = "comboBox_tela";
             this.comboBox_tela.Size = new System.Drawing.Size(163, 23);
@@ -213,7 +216,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(484, 499);
+            this.ClientSize = new System.Drawing.Size(484, 501);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox_comunicacao);
             this.Controls.Add(textBox_titulo);

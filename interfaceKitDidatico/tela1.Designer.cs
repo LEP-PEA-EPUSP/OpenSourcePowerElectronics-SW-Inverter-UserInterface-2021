@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.TextBox titleE2;
+            System.Windows.Forms.TextBox titulo_T1;
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.PulsosCiclo = new System.Windows.Forms.ComboBox();
             this.textBox4 = new System.Windows.Forms.TextBox();
@@ -46,25 +46,25 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.buttonVoltar = new System.Windows.Forms.Button();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
-            titleE2 = new System.Windows.Forms.TextBox();
+            titulo_T1 = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
-            // titleE2
+            // titulo_T1
             // 
-            titleE2.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            titleE2.BackColor = System.Drawing.SystemColors.MenuBar;
-            titleE2.CausesValidation = false;
-            titleE2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            titleE2.Location = new System.Drawing.Point(50, 26);
-            titleE2.Name = "titleE2";
-            titleE2.ReadOnly = true;
-            titleE2.Size = new System.Drawing.Size(400, 29);
-            titleE2.TabIndex = 1;
-            titleE2.TabStop = false;
-            titleE2.Text = "Tela 1 - Conversor Monofásico";
-            titleE2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            titulo_T1.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            titulo_T1.BackColor = System.Drawing.SystemColors.MenuBar;
+            titulo_T1.CausesValidation = false;
+            titulo_T1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            titulo_T1.Location = new System.Drawing.Point(50, 26);
+            titulo_T1.Name = "titulo_T1";
+            titulo_T1.ReadOnly = true;
+            titulo_T1.Size = new System.Drawing.Size(400, 29);
+            titulo_T1.TabIndex = 1;
+            titulo_T1.TabStop = false;
+            titulo_T1.Text = "Tela 1 - Conversor Monofásico";
+            titulo_T1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // groupBox1
             // 
@@ -87,6 +87,7 @@
             // 
             // PulsosCiclo
             // 
+            this.PulsosCiclo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.PulsosCiclo.FormattingEnabled = true;
             this.PulsosCiclo.Items.AddRange(new object[] {
             "10",
@@ -113,6 +114,7 @@
             // 
             // IndiceMod
             // 
+            this.IndiceMod.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.IndiceMod.FormattingEnabled = true;
             this.IndiceMod.Items.AddRange(new object[] {
             "0",
@@ -141,6 +143,7 @@
             // 
             // FrequenciaMod
             // 
+            this.FrequenciaMod.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.FrequenciaMod.FormattingEnabled = true;
             this.FrequenciaMod.Items.AddRange(new object[] {
             "30",
@@ -175,6 +178,7 @@
             // 
             // NivelPWM
             // 
+            this.NivelPWM.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.NivelPWM.FormattingEnabled = true;
             this.NivelPWM.Items.AddRange(new object[] {
             "2 níveis",
@@ -283,7 +287,7 @@
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.buttonFinalizar);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(titleE2);
+            this.Controls.Add(titulo_T1);
             this.Name = "Tela1";
             this.Text = "Tela 1";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.close_Click);

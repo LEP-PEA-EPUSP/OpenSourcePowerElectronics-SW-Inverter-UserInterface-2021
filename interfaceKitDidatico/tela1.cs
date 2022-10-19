@@ -29,18 +29,18 @@ namespace interfaceKitDidatico
         uint Byte7;
         uint Byte8;
 
-        //Matrizes com valores de
-        uint[,] array30 = new uint[5, 4] { { 35000, 3, 1, 0 }, { 23333, 2, 1, 0 }, { 46666, 0, 1, 0 }, { 35000, 0, 1, 0 }, { 28000, 0, 1, 0 } };
-        uint[,] array60 = new uint[5, 4] { { 35000, 1, 1, 0 }, { 35000, 0, 1, 0 }, { 23000, 0, 1, 0 }, { 17500, 0, 1, 0 }, { 14000, 0, 1, 0 } };
+        //Matrizes com valores de ARR, PSC, RCR e CKD
+        uint[,] array30 = new uint[5, 4] { { 56000, 4, 0, 0 }, { 46667, 2, 0, 0 }, { 46667, 1, 0, 0 }, { 35000, 1, 0, 0 }, { 28000, 1, 0, 0 } };
+        uint[,] array60 = new uint[5, 4] { { 35000, 3, 0, 0 }, { 35000, 1, 0, 0 }, { 23333, 1, 0, 0 }, { 17500, 1, 0, 0 }, { 14000, 1, 0, 0 } };
 
         //Variáveis de resposta
         int answer_type;
-        int no_exp;
-        int status;
-        int inverter_enable;
-        int PWM_foundation_update;
-        int PWM_counter_update;
-        int DAC_update;
+        int answer_no_Program;
+        int answer_status;
+        int answer_inverterEnable;
+        int answer_pwmFoundationUpdate;
+        int answer_pwmCounterUpdate;
+        int answer_dacUpdate;
 
         public Tela1(PaginaInicial parent, int tamanho_palavra)
         {
@@ -59,7 +59,7 @@ namespace interfaceKitDidatico
             }
             else
             {
-                PacketAssemble();
+                PacketAssemble_T1();
 
                 //Intertravamento do botões
                 groupBox2.Enabled = true; //Habilita "Execução" (botão "Liga" habilitado)
@@ -72,15 +72,12 @@ namespace interfaceKitDidatico
 
 
                 answer_type = Convert.ToInt16(buffer2[0] >> 7);
-                no_exp = Convert.ToInt16((buffer2[0] & 01111000) >> 3);
-                status = Convert.ToInt16(buffer2[0] & 00000111);
-                inverter_enable = Convert.ToInt16(buffer2[1] >> 7);
-                PWM_foundation_update = Convert.ToInt16((buffer2[1] & 01000000) >> 6);
-                PWM_counter_update = Convert.ToInt16((buffer2[1] & 00100000) >> 5);
-                DAC_update = Convert.ToInt16((buffer2[1] & 00010000) >> 4);
-
-
-
+                answer_no_Program = Convert.ToInt16((buffer2[0] & 01111000) >> 3);
+                answer_status = Convert.ToInt16(buffer2[0] & 00000111);
+                answer_inverterEnable = Convert.ToInt16(buffer2[1] >> 7);
+                answer_pwmFoundationUpdate = Convert.ToInt16((buffer2[1] & 01000000) >> 6);
+                answer_pwmCounterUpdate = Convert.ToInt16((buffer2[1] & 00100000) >> 5);
+                answer_dacUpdate = Convert.ToInt16((buffer2[1] & 00010000) >> 4);
 
             }
 
@@ -212,7 +209,7 @@ namespace interfaceKitDidatico
             }
         }
 
-        private void PacketAssemble()
+        private void PacketAssemble_T1()
         {
             uint ARR = 0;
             uint PSC = 0;
@@ -244,13 +241,13 @@ namespace interfaceKitDidatico
             //Byte [1:1] - Packet type (0: Command / 1: Data request)
             Byte1 = 0b_0000_0000;
 
-            //Byte [1:2-5] - Exp. number
-            uint numeroExp = 2;
-            Byte1 = Byte1 | (numeroExp << 1);
+            //Byte [1:2-5] - Program Number
+            uint noProgram = 1;
+            Byte1 = Byte1 | (noProgram << 1);
 
-            //Byte [1:6-8] - Subparte do experimento
-            //Não se aplica a esse experimento
-
+            //Byte [1:6-8] - Program Internal Subset
+            uint InternalSubset = 1;
+            Byte1 = Byte1 | (InternalSubset << 5);
 
             //----------Definições Byte [2]----------//
 
