@@ -164,7 +164,7 @@ namespace interfaceKitDidatico
                 ErrorHandler(4); // 4 --> erro de desconexão da placa
             }
 
-            Console.WriteLine(Convert.ToString(buffer[1], toBase: 2));
+            Console.WriteLine(Convert.ToString(buffer[0], toBase: 2));
 
             Task.Delay(50);
 

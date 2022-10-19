@@ -18,10 +18,8 @@ namespace interfaceKitDidatico
         bool inversor = false;
 
         //Variáveis auxiliares --> Objetivo: Saber se o usuário mudou ou não as entradas do experimento
-        string auxNivelPWM = "null";
-        string auxFrequenciaMod = "null";
-        string auxDutyCycle = "null";
-        string auxPulsosCiclo = "null";
+        string auxNivelPWM = null;
+        string auxDutyCycle = null;
 
 
         //Variáveis para a montagem do pacote
@@ -34,7 +32,6 @@ namespace interfaceKitDidatico
         uint Byte5;
         uint Byte6;
         uint Byte7;
-        uint Byte8;
 
         //Variáveis de resposta
         int answer_type;
@@ -286,7 +283,10 @@ namespace interfaceKitDidatico
 
             //Byte [7:1] - Request modulation update ***
             Byte7 = 0b_0000_0000;
-            if (auxDutyCycle != DutyCycle.Text) Byte7 = Byte7 | 1;
+            if (auxDutyCycle != DutyCycle.Text)
+            {
+                Byte7 = Byte7 | 1;
+            }
 
             //Byte [7:2-8] - Duty Cycle(%)
             uint valorDutyCycle = Convert.ToUInt16(DutyCycle.Text);

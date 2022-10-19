@@ -247,7 +247,7 @@ namespace interfaceKitDidatico
 
             //Byte [1:6-8] - Subparte do experimento
             uint InternalSubset = 2;
-            Byte1 = Byte1 | (InternalSubset << 4);
+            Byte1 = Byte1 | (InternalSubset << 5);
 
             //----------Definições Byte [2]----------//
 

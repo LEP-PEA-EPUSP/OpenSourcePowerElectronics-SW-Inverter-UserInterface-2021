@@ -101,6 +101,7 @@
             this.buttonAvancar.TabIndex = 3;
             this.buttonAvancar.Text = "Avançar";
             this.buttonAvancar.UseVisualStyleBackColor = true;
+            this.buttonAvancar.Click += new System.EventHandler(this.next_Click);
             // 
             // groupBox2
             // 
@@ -126,6 +127,7 @@
             this.buttonVoltar.TabIndex = 6;
             this.buttonVoltar.Text = "Voltar a Seleção de Dados";
             this.buttonVoltar.UseVisualStyleBackColor = true;
+            this.buttonVoltar.Click += new System.EventHandler(this.voltar_Click);
             // 
             // buttonDesliga
             // 
@@ -138,6 +140,7 @@
             this.buttonDesliga.TabIndex = 5;
             this.buttonDesliga.Text = "Desliga";
             this.buttonDesliga.UseVisualStyleBackColor = false;
+            this.buttonDesliga.Click += new System.EventHandler(this.desliga_Click);
             // 
             // buttonLiga
             // 
@@ -149,6 +152,7 @@
             this.buttonLiga.TabIndex = 4;
             this.buttonLiga.Text = "Liga";
             this.buttonLiga.UseVisualStyleBackColor = false;
+            this.buttonLiga.Click += new System.EventHandler(this.liga_Click);
             // 
             // buttonAquisicao
             // 
@@ -160,6 +164,7 @@
             this.buttonAquisicao.TabIndex = 6;
             this.buttonAquisicao.Text = "Aquisição";
             this.buttonAquisicao.UseVisualStyleBackColor = true;
+            this.buttonAquisicao.Click += new System.EventHandler(this.aquisicao_Click);
             // 
             // buttonFinalizar
             // 
@@ -170,6 +175,7 @@
             this.buttonFinalizar.TabIndex = 11;
             this.buttonFinalizar.Text = "Finalizar Experimento";
             this.buttonFinalizar.UseVisualStyleBackColor = true;
+            this.buttonFinalizar.Click += new System.EventHandler(this.finalizar_Click);
             // 
             // saveFileDialog1
             // 

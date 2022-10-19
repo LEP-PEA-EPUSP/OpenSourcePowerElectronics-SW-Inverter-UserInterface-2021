@@ -154,7 +154,7 @@
             this.comboBox_tela.Items.AddRange(new object[] {
             "Tela 1 - Conversor Monofásico",
             "Tela 2 - Conversor Trifásico",
-            "Tela 3 - Duty Cicle Fixo"});
+            "Tela 3 - Duty Cycle Fixo"});
             this.comboBox_tela.Location = new System.Drawing.Point(50, 56);
             this.comboBox_tela.Name = "comboBox_tela";
             this.comboBox_tela.Size = new System.Drawing.Size(163, 23);
