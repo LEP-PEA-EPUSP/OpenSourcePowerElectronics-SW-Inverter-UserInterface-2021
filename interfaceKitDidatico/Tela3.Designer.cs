@@ -40,6 +40,8 @@
             this.buttonAquisicao = new System.Windows.Forms.Button();
             this.buttonFinalizar = new System.Windows.Forms.Button();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.FrequenciaMod = new System.Windows.Forms.ComboBox();
+            this.textBox2 = new System.Windows.Forms.TextBox();
             titulo_T2 = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -62,40 +64,42 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.FrequenciaMod);
+            this.groupBox1.Controls.Add(this.textBox2);
             this.groupBox1.Controls.Add(this.DutyCycle);
             this.groupBox1.Controls.Add(this.textBox3);
             this.groupBox1.Controls.Add(this.buttonAvancar);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(35, 83);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(381, 118);
+            this.groupBox1.Size = new System.Drawing.Size(381, 155);
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Seleção de Dados";
             // 
             // DutyCycle
             // 
-            this.DutyCycle.Location = new System.Drawing.Point(177, 33);
+            this.DutyCycle.Location = new System.Drawing.Point(200, 69);
             this.DutyCycle.Name = "DutyCycle";
-            this.DutyCycle.Size = new System.Drawing.Size(122, 21);
+            this.DutyCycle.Size = new System.Drawing.Size(93, 21);
             this.DutyCycle.TabIndex = 5;
             // 
             // textBox3
             // 
             this.textBox3.BackColor = System.Drawing.SystemColors.MenuBar;
             this.textBox3.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox3.Location = new System.Drawing.Point(61, 33);
+            this.textBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox3.Location = new System.Drawing.Point(200, 40);
             this.textBox3.Multiline = true;
             this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(110, 21);
+            this.textBox3.Size = new System.Drawing.Size(93, 21);
             this.textBox3.TabIndex = 4;
             this.textBox3.Text = "Duty Cycle (%):";
             // 
             // buttonAvancar
             // 
             this.buttonAvancar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonAvancar.Location = new System.Drawing.Point(61, 70);
+            this.buttonAvancar.Location = new System.Drawing.Point(60, 110);
             this.buttonAvancar.Name = "buttonAvancar";
             this.buttonAvancar.Size = new System.Drawing.Size(238, 30);
             this.buttonAvancar.TabIndex = 3;
@@ -111,7 +115,7 @@
             this.groupBox2.Controls.Add(this.buttonAquisicao);
             this.groupBox2.Enabled = false;
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox2.Location = new System.Drawing.Point(35, 221);
+            this.groupBox2.Location = new System.Drawing.Point(35, 255);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(381, 133);
             this.groupBox2.TabIndex = 10;
@@ -169,7 +173,7 @@
             // buttonFinalizar
             // 
             this.buttonFinalizar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonFinalizar.Location = new System.Drawing.Point(35, 371);
+            this.buttonFinalizar.Location = new System.Drawing.Point(35, 404);
             this.buttonFinalizar.Name = "buttonFinalizar";
             this.buttonFinalizar.Size = new System.Drawing.Size(381, 31);
             this.buttonFinalizar.TabIndex = 11;
@@ -183,11 +187,37 @@
             this.saveFileDialog1.Filter = "Arquivos TXT|*.txt|Todos os arquivos|*.*";
             this.saveFileDialog1.Title = "Aquisição de Dados do Experimento";
             // 
+            // FrequenciaMod
+            // 
+            this.FrequenciaMod.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.FrequenciaMod.FormattingEnabled = true;
+            this.FrequenciaMod.Items.AddRange(new object[] {
+            "2000",
+            "4000",
+            "6000",
+            "8000"});
+            this.FrequenciaMod.Location = new System.Drawing.Point(64, 68);
+            this.FrequenciaMod.Name = "FrequenciaMod";
+            this.FrequenciaMod.Size = new System.Drawing.Size(112, 23);
+            this.FrequenciaMod.TabIndex = 7;
+            // 
+            // textBox2
+            // 
+            this.textBox2.BackColor = System.Drawing.SystemColors.MenuBar;
+            this.textBox2.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox2.Location = new System.Drawing.Point(64, 32);
+            this.textBox2.Multiline = true;
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(112, 35);
+            this.textBox2.TabIndex = 6;
+            this.textBox2.Text = "Frequência da moduladora (Hz):";
+            // 
             // Tela3
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(454, 421);
+            this.ClientSize = new System.Drawing.Size(454, 447);
             this.Controls.Add(this.buttonFinalizar);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
@@ -215,5 +245,7 @@
         private System.Windows.Forms.Button buttonAquisicao;
         private System.Windows.Forms.Button buttonFinalizar;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
+        private System.Windows.Forms.ComboBox FrequenciaMod;
+        private System.Windows.Forms.TextBox textBox2;
     }
 }

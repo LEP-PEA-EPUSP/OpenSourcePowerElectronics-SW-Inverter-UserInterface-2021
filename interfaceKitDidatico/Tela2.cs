@@ -15,7 +15,7 @@ namespace interfaceKitDidatico
         string auxFrequenciaMod = null;
         string auxIndiceMod = null;
         string auxPulsosCiclo = null;
-
+        string auxSequenceZero = null;
 
         //Variáveis para a montagem do pacote
         byte[] buffer = new byte[32];
@@ -308,11 +308,11 @@ namespace interfaceKitDidatico
 
             //Byte [7:1] - Request modulation update ***
             Byte7 = 0b_0000_0000;
-            if (auxIndiceMod != IndiceMod.Text || auxFrequenciaMod != FrequenciaMod.Text) Byte7 = Byte7 | 1;
+            if (auxIndiceMod != IndiceMod.Text || auxFrequenciaMod != FrequenciaMod.Text || auxSequenceZero != SequenceZero.Text) Byte7 = Byte7 | 1;
 
             //Byte [7:2] - Injeção da sequência 0 - {0: off / 1: on}
-            if (SequenceZero.Text == "Desligado") Byte7 = Byte7 | (0 << 1);
-            else if (SequenceZero.Text == "Ligado") Byte7 = Byte7 | (1 << 1);
+            if (SequenceZero.Text == "Desligada") Byte7 = Byte7 | (0 << 1);
+            else if (SequenceZero.Text == "Ligada") Byte7 = Byte7 | (1 << 1);
 
             //Byte [7:3-8] - Frequência da moduladora - {30 ou 60 Hz}
             if (FrequenciaMod.Text == "30") Byte7 = Byte7 | (30 << 2);
@@ -354,6 +354,7 @@ namespace interfaceKitDidatico
             auxFrequenciaMod = FrequenciaMod.Text;
             auxIndiceMod = IndiceMod.Text;
             auxPulsosCiclo = PulsosCiclo.Text;
+            auxSequenceZero = SequenceZero.Text;
         }
     }
 }

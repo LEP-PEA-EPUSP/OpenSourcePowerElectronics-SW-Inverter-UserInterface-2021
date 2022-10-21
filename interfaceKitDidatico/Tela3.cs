@@ -20,6 +20,7 @@ namespace interfaceKitDidatico
         //Variáveis auxiliares --> Objetivo: Saber se o usuário mudou ou não as entradas do experimento
         string auxNivelPWM = null;
         string auxDutyCycle = null;
+        string auxFrequenciaMod = null;
 
 
         //Variáveis para a montagem do pacote
@@ -32,6 +33,7 @@ namespace interfaceKitDidatico
         uint Byte5;
         uint Byte6;
         uint Byte7;
+        uint Byte8;
 
         //Variáveis de resposta
         int answer_type;
@@ -52,12 +54,12 @@ namespace interfaceKitDidatico
         private void next_Click(object sender, EventArgs e)
         {
             //Verifica se os dados não foram selecionados
-            if (string.IsNullOrEmpty(DutyCycle.Text))
+            if (string.IsNullOrEmpty(DutyCycle.Text) || string.IsNullOrEmpty(FrequenciaMod.Text))
             {
                 //Mensagem de erro caso usuário não tenha selecionado todos os dados
                 MessageBox.Show("Erro: Selecione todos os dados necessários para o Experimento.");
             }
-            else if (Convert.ToInt16(DutyCycle.Text) < 0 || Convert.ToInt16(DutyCycle.Text) > 100)
+            else if (Convert.ToDouble(DutyCycle.Text) < 0 || Convert.ToDouble(DutyCycle.Text) > 100)
             {
                 //Mensagem de erro caso usuário não tenha selecionado todos os dados
                 MessageBox.Show("Erro: Insira um valor de 0 a 100 (%) para o Duty Cycle.");
@@ -249,10 +251,14 @@ namespace interfaceKitDidatico
             Byte2 = Byte2 | (1 << 5);
 
             //Byte [2:7] - Repetition counter (Single update --> 1 | double update --> 0)
-                //Não se aplica
+            //Não se aplica
 
             //Byte [2:8] - Request PWM counter configuration update (0: não houve mudança no parâmetro | 1: houve mudnaça) 
-                //Não se aplica
+            if (auxNivelPWM == null)
+            {
+                Byte2 = Byte2 | (1 << 1);
+            }
+            else Byte2 = Byte2 | (0 << 1);
 
             //----------Definições Byte [3]: ARR (high)----------//
 
@@ -283,14 +289,55 @@ namespace interfaceKitDidatico
 
             //Byte [7:1] - Request modulation update ***
             Byte7 = 0b_0000_0000;
-            if (auxDutyCycle != DutyCycle.Text)
+            if (auxDutyCycle != DutyCycle.Text || auxFrequenciaMod != FrequenciaMod.Text)
             {
                 Byte7 = Byte7 | 1;
             }
 
-            //Byte [7:2-8] - Duty Cycle(%)
-            uint valorDutyCycle = Convert.ToUInt16(DutyCycle.Text);
-            Byte7 = Byte7 | (valorDutyCycle << 1);
+            //Byte [7:2-8] - Frequência da moduladora - {30 ou 60 Hz}
+            uint valorFrequencia = 0;
+            valorFrequencia = Convert.ToUInt16(FrequenciaMod.Text);
+            valorFrequencia = valorFrequencia / 1000;
+            Byte7 = Byte7 | (valorFrequencia << 1);
+
+
+            //----------Definições Byte [8]----------//
+
+            //Byte [8:1-7] - Parte inteira Duty Cycle
+            //Byte [8:8] - Parte decimal Duty Cycle (0 -> .0 // 1 -> .5)
+
+            double valorDutyCycle = Convert.ToDouble(DutyCycle.Text);
+
+            double parteDecimal;
+            uint parteInteiraDutyCycle=0;
+            uint indicadorDecimalDutyCycle=0;
+
+            parteDecimal = (valorDutyCycle - Math.Truncate(valorDutyCycle))*10;
+            if (parteDecimal < 5)
+            {
+                parteInteiraDutyCycle = Convert.ToUInt16(Math.Truncate(valorDutyCycle));
+                indicadorDecimalDutyCycle = 0;
+            }
+            else if (parteDecimal == 5)
+            {
+                parteInteiraDutyCycle = Convert.ToUInt16(Math.Truncate(valorDutyCycle));
+                indicadorDecimalDutyCycle = 1;
+            }
+            else if (parteDecimal > 5)
+            {
+                parteInteiraDutyCycle = Convert.ToUInt16(Math.Truncate(valorDutyCycle) + 1);
+                indicadorDecimalDutyCycle = 0;
+            }
+
+
+            Console.WriteLine(Convert.ToString(valorDutyCycle));
+            Console.WriteLine(Convert.ToString(parteInteiraDutyCycle));
+            Console.WriteLine(Convert.ToString(indicadorDecimalDutyCycle));
+
+            Byte8 = 0b_0000_0000;
+            Byte8 = Byte8 | (parteInteiraDutyCycle);
+            Byte8 = Byte8 | (indicadorDecimalDutyCycle << 7);
+
 
             //----------Registro dos bytes no pacote----------//
 
@@ -301,6 +348,7 @@ namespace interfaceKitDidatico
             buffer[4] = Convert.ToByte(Byte5);
             buffer[5] = Convert.ToByte(Byte6);
             buffer[6] = Convert.ToByte(Byte7);
+            buffer[7] = Convert.ToByte(Byte8);
 
             //----------Linhas para testes----------//
             //Console.WriteLine("Pacote enviado:");
@@ -318,6 +366,7 @@ namespace interfaceKitDidatico
 
             //Registro de parâmetros
             auxDutyCycle = DutyCycle.Text;
+            auxFrequenciaMod = FrequenciaMod.Text;
             auxNivelPWM = "1";
         }
     }
