@@ -13,20 +13,20 @@ namespace interfaceKitDidatico
 {
     public partial class PaginaInicial : Form
     {
-        //Variáveis para pacotes de dados
+        /*Variáveis para pacotes de dados*/
         public static byte[] buffer = new byte[32]; //buffer de envio de dados
         public static byte[] buffer2 = new byte[10]; //buffer de recebimento de dados
         public static byte[] buffer3 = new byte[4101]; //buffer para aquisição de dados
         int tamanho_pacote_enviado = 32;
         int tamanho_pacote_recebido = 10;
 
-        //Variáveis auxiliares de verificação e tratamento de erros
-        int contador = 0; //contagem do procedimento de comunicação
-        bool alerta_aberto = false; //auxiliar para erro de desconexão da placa
-        bool erro_dados = false;
+        /*Variáveis auxiliares de verificação e tratamento de erros*/
+        int contador = 0; //Contagem do procedimento de comunicação
+        bool alerta_aberto = false; //Auxiliar para erro de desconexão da placa
+        bool erro_dados = false; 
         string tela_escolhida;
 
-        //Variáveis auxiliares para recebimento de dados
+        /*Variáveis auxiliares para recebimento de dados*/
         public static int answer_type;
 
         public PaginaInicial()
@@ -34,7 +34,9 @@ namespace interfaceKitDidatico
             InitializeComponent();
         }
 
-        //Função de conexão com a placa
+    //[BLOCO 1 - COMUNICAÇÃO]//
+
+        /* Bloco Comunicação - Função 1.1 - Seleção e abertuda da porta serial */
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             //Fecha porta serial se estiver aberta 
@@ -51,27 +53,30 @@ namespace interfaceKitDidatico
             }
             catch
             {
-                ErrorHandler(1); // 1 --> erro de escolha de porta serial não utilizada
+                ErrorHandler(1); // 1 --> Erro de escolha de porta serial não utilizada
             } 
         }
 
-        //Função de início da verificação de comunicação
+        /* Bloco Comunicação - Função 1.2 - Início da verificação de comunicação*/
         private void iniciarVerificacao_Click(object sender, EventArgs e)
         {
-            textBox_status.Text = "Verificando";
+            textBox_status.Text = "Verificando"; //Atualiza texto de status da comunicação
+
             try
             {
+                //Repete o procedimento de verificar comunicação até 3 vezes
                 int retry = 0;
                 while (retry < 3)
                 {
-                    comunicacao(); //Chama função de comunicação
+                    comunicacao(); //Chama função de teste comunicação
                     retry++;
-                    if (erro_dados == false) break;
+
+                    if (erro_dados == false) break; //Caso verificação não tiver erros, quebra repetição
                 }
             }
             catch
             {
-                ErrorHandler(2); // 1 --> erro de escolha de porta serial errada
+                ErrorHandler(2); // 2 --> Erro de escolha de porta serial errada
             }
             
 
@@ -80,112 +85,23 @@ namespace interfaceKitDidatico
             {
                 if (erro_dados == false)
                 {
-                    //Conjunto de ações quando comunicação deu certo
+                    //Conjunto de ações realizadas após sucesso da verificação de comunicação
                     groupBox_comunicacao.Enabled = false;
                     textBox_status.Text = "Conectado";
                     textBox_status.BackColor = Color.LightGreen;
-                    groupBox2.Enabled = true;
+                    groupBox_experimento.Enabled = true;
                     timer1.Enabled = true;
                 }
                 else
                 {
-                    ErrorHandler(3); // 3 --> Dados incosistentes
+                    ErrorHandler(3); // 3 --> Erro de dados inconsistentes
                     erro_dados = false;
                 }
                 contador = 0;
             }
         }
 
-
-
-        //Função para escolha do experimento
-        private void escolhaExperimento(object sender, EventArgs e)
-        {
-            //Qunado usuário selecionar algum experimento, botão de "Avançar" é desbloqueado
-            if (comboBox_tela != null) button_avancar.Enabled = true;
-            else button_avancar.Enabled = false;
-
-        }
-
-        //Função de avanço para abertura do experimento
-        private void next_Click(object sender, EventArgs e)
-        {
-            if (string.IsNullOrEmpty(comboBox_tela.Text) == false)
-            {
-                //Registra tela escolhida
-                tela_escolhida = comboBox_tela.Text; 
-
-                //Abertura de telas
-                if (tela_escolhida == "Tela 1 - Conversor Monofásico")
-                {
-                    //Comandos para abrir a tela
-                    Tela1 tela = new Tela1(this, tamanho_pacote_enviado);
-                    tela.Show();
-
-                    //Impede que mexa na tela de Pagina Inicial após abertura do experimento
-                    Enabled = false;
-
-                    tela_escolhida = "";
-                }
-                else if (tela_escolhida == "Tela 2 - Conversor Trifásico")
-                {
-                    //Comandos para abrir a tela
-                    Tela2 tela = new Tela2(this, tamanho_pacote_enviado);
-                    tela.Show();
-
-                    //Impede que mexa na tela de Pagina Inicial após abertura do experimento
-                    Enabled = false;
-
-                    tela_escolhida = "";
-                }
-                else if (tela_escolhida == "Tela 3 - Duty Cycle Fixo")
-                {
-                    //Comandos para abrir a tela
-                    Tela3 tela = new Tela3(this, tamanho_pacote_enviado);
-                    tela.Show();
-
-                    //Impede que mexa na tela de Pagina Inicial após abertura do experimento
-                    Enabled = false;
-
-                    tela_escolhida = "";
-                }
-            }
-        }
-
-        //Função timer - se repete durante todo uso do aplicativo (quando ativada)
-        private void timer1_Tick(object sender, EventArgs e)
-        {
-            try
-            {
-                serialPort1.Write(buffer, 0, tamanho_pacote_enviado);
-            }
-            catch
-            {
-                ErrorHandler(4); // 4 --> erro de desconexão da placa
-            }
-
-            //Console.WriteLine(Convert.ToString(buffer[1], toBase: 2));
-            //Console.WriteLine(Convert.ToString(buffer[6], toBase: 2));
-
-            Task.Delay(50);
-
-            //Recebimento de dados
-            Array.Clear(buffer2, 0, buffer2.Length);
-            try
-            {
-                serialPort1.Read(buffer2, 0, 10);
-            }
-            catch
-            {
-                
-            }
-            
-            
-            answer_type = Convert.ToInt16(buffer2[0] >> 7);
-
-        }
-
-        //Teste de Comunicacao
+        /* Bloco Comunicação - Função 1.3 - Teste de comunicação */
         public void comunicacao()
         {
             erro_dados = false;
@@ -222,7 +138,39 @@ namespace interfaceKitDidatico
             }
         }
 
-        //Tratamento de Erros
+        /* Bloco Comunicação - Função 1.4 - Timer (Se repete durante todo uso do aplicativo após ser ativada) */
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            //Envio de dados para o ARM
+            try
+            {
+                serialPort1.Write(buffer, 0, tamanho_pacote_enviado);
+            }
+            catch
+            {
+                ErrorHandler(4); // 4 --> Erro de desconexão da placa
+            }
+
+            //Delay para compensar descompasso entre envio e recebimento de dados
+            Task.Delay(50);
+
+            //Recebimento de dados devolvidos pelo ARM
+            Array.Clear(buffer2, 0, buffer2.Length); //Limpa buffer que receberá dados
+            try
+            {
+                serialPort1.Read(buffer2, 0, 10);
+            }
+            catch
+            {
+                //Espaço para implementar erro de leitura futuramente
+            }
+
+            //Espaço para desenvolver mais a parte de recebimento de dados futuramente
+            answer_type = Convert.ToInt16(buffer2[0] >> 7);
+
+        }
+
+        /* Bloco Comunicação - Função 1.5 - Tratamento de erros */
         private void ErrorHandler(int error_type)
         {
             // 1 --> Erro de escolha de porta serial não utilizada
@@ -237,7 +185,7 @@ namespace interfaceKitDidatico
                 textBox_status.Text = "Erro";
                 textBox_status.BackColor = Color.Salmon;
             }
-            // 3 --> Dados incosistentes
+            // 3 --> Erro de dados incosistentes
             else if (error_type == 3)
             {
                 MessageBox.Show("Dados enviados pelo ARM estão inconsistentes. As opções de solução são: \n \n 1.Tente clicar em 'Iniciar comunicação' novamente. Caso não funionar, tente a opção abaixo. \n \n 2.Certifique-se de que o inversor está desligado. Pressione o botão preto (reset) da placa Discovery (microcontrolador). Caso tenha dúvidas, peça ajuda de um monitor ou do professor.", "Erro: Falha na comunicação");
@@ -263,8 +211,64 @@ namespace interfaceKitDidatico
                     }
 
                 }
-               
-                
+            }
+        }
+
+    //[BLOCO 2 - LÓGICA DE TELAS]//
+
+
+        /* Bloco Lógica de Telas - Função 2.1 - Escolha da tela/experimento */
+        private void escolhaExperimento(object sender, EventArgs e)
+        {
+            //Quando usuário selecionar algum experimento, botão de "Avançar" é desbloqueado
+            if (comboBox_tela != null) button_avancar.Enabled = true;
+            else button_avancar.Enabled = false;
+
+            MessageBox.Show("teste");
+        }
+
+
+        /* Bloco Lógica de Telas - Função 2.2 - Abertura da tela/experimento */
+        private void next_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(comboBox_tela.Text) == false)
+            {
+                tela_escolhida = comboBox_tela.Text; //Registra tela escolhida
+
+                //Abertura de telas
+                if (tela_escolhida == "Tela 1 - Conversor Monofásico")
+                {
+                    //Comandos para abrir a tela
+                    Tela1 tela = new Tela1(this, tamanho_pacote_enviado);
+                    tela.Show();
+
+                    //Impede que mexa na tela de Pagina Inicial após abertura do experimento
+                    Enabled = false;
+
+                    tela_escolhida = "";
+                }
+                else if (tela_escolhida == "Tela 2 - Conversor Trifásico")
+                {
+                    //Comandos para abrir a tela
+                    Tela2 tela = new Tela2(this, tamanho_pacote_enviado);
+                    tela.Show();
+
+                    //Impede que mexa na tela de Pagina Inicial após abertura do experimento
+                    Enabled = false;
+
+                    tela_escolhida = "";
+                }
+                else if (tela_escolhida == "Tela 3 - Duty Cycle Fixo")
+                {
+                    //Comandos para abrir a tela
+                    Tela3 tela = new Tela3(this, tamanho_pacote_enviado);
+                    tela.Show();
+
+                    //Impede que mexa na tela de Pagina Inicial após abertura do experimento
+                    Enabled = false;
+
+                    tela_escolhida = "";
+                }
             }
         }
     }
