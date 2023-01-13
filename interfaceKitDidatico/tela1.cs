@@ -6,18 +6,19 @@ namespace interfaceKitDidatico
 {
     public partial class Tela1 : Form
     {
+        /*Variáveis gerais*/
         private PaginaInicial parent;
         public int tamanho_palavra;
         bool inversor = false;
 
-        //Variáveis auxiliares --> Objetivo: Saber se o usuário mudou ou não as entradas do experimento
+        /*Variáveis auxiliares --> Objetivo: Saber se o usuário mudou ou não as entradas do experimento*/
         string auxNivelPWM = "null";
         string auxFrequenciaMod = "null";
         string auxIndiceMod = "null";
         string auxPulsosCiclo = "null";
 
 
-        //Variáveis para a montagem do pacote
+        /*Variáveis para a montagem do pacote*/
         byte[] buffer = new byte[32];
         byte[] buffer2 = new byte[10];
         uint Byte1;
@@ -29,11 +30,11 @@ namespace interfaceKitDidatico
         uint Byte7;
         uint Byte8;
 
-        //Matrizes com valores de ARR, PSC, RCR e CKD
+        /*Matrizes com valores da taabela para o ARR, PSC, RCR e CKD*/
         uint[,] array30 = new uint[5, 4] { { 56000, 4, 0, 0 }, { 46667, 2, 0, 0 }, { 46667, 1, 0, 0 }, { 35000, 1, 0, 0 }, { 28000, 1, 0, 0 } };
         uint[,] array60 = new uint[5, 4] { { 35000, 3, 0, 0 }, { 35000, 1, 0, 0 }, { 23333, 1, 0, 0 }, { 17500, 1, 0, 0 }, { 14000, 1, 0, 0 } };
 
-        //Variáveis de resposta
+        /*Variáveis de resposta*/
         int answer_type;
         int answer_no_Program;
         int answer_status;
@@ -42,6 +43,7 @@ namespace interfaceKitDidatico
         int answer_pwmCounterUpdate;
         int answer_dacUpdate;
 
+        /*Inicialização da tela 1*/
         public Tela1(PaginaInicial parent, int tamanho_palavra)
         {
             this.parent = parent;
@@ -49,6 +51,9 @@ namespace interfaceKitDidatico
             this.tamanho_palavra = tamanho_palavra;
         }
 
+    //[BLOCO 1 - PACOTE DE DADOS]//
+
+        /* Função 1.1 -  */
         private void next_Click(object sender, EventArgs e)
         {
             //Verifica se os dados não foram selecionados
@@ -78,137 +83,10 @@ namespace interfaceKitDidatico
                 answer_pwmFoundationUpdate = Convert.ToInt16((buffer2[1] & 01000000) >> 6);
                 answer_pwmCounterUpdate = Convert.ToInt16((buffer2[1] & 00100000) >> 5);
                 answer_dacUpdate = Convert.ToInt16((buffer2[1] & 00010000) >> 4);
-
-            }
-
-        }
-
-        private void voltar_Click(object sender, EventArgs e)
-        {
-            //Habilita "Seleção de Dados" e desabilita "Execução"
-            groupBox1.Enabled = true;
-            groupBox2.Enabled = false;
-        }
-
-        private void liga_Click(object sender, EventArgs e)
-        {
-            inversor = true;
-            //Habilita botões "Desliga" e "Aquisição"
-            buttonDesliga.Enabled = true;
-            buttonAquisicao.Enabled = true;
-            //Desabilita botões "Liga", "Voltar" e "Finalizar"
-            buttonLiga.Enabled = false;
-            buttonVoltar.Enabled = false;
-            buttonFinalizar.Enabled = false;
-
-        //-----Atualização de informações do pacote: Liga Inversor-----//
-
-            // Byte [2:1] - Inversor enable pin (ligado)
-            Byte2 = Byte2 | 1;
-
-            //Byte [2:2] - Request foundation update
-            Byte2 = Byte2 | (0 << 1);
-
-            //Byte [2:8] - Request PWM counter configuration update
-            Byte2 = Byte2 | (0 << 7);
-
-            //Byte [7:1] - Request modulation update
-            Byte7 = Byte7 | 0;
-
-        //----------Registro dos bytes no pacote----------//
-
-            buffer[1] = Convert.ToByte(Byte2);
-            buffer[6] = Convert.ToByte(Byte7);
-
-            //Console.WriteLine(Convert.ToString(buffer[2], toBase: 2)); //linha para testes
-            //Console.WriteLine(Convert.ToString(buffer[7], toBase: 2)); //linha para testes
-
-            PaginaInicial.buffer[1] = buffer[1];
-            PaginaInicial.buffer[6] = buffer[6];
-        }
-
-        private void aquisicao_Click(object sender, EventArgs e)
-        {
-            //-----Atualização de informações do pacote: Pede aquisição-----//
-
-            //Byte [1:1] - Packet type (0: Command / 1: Data request)
-            Byte1 = Byte1 | 1;
-
-            buffer[0] = Convert.ToByte(Byte1);
-            //Console.WriteLine(Convert.ToString(buffer[1], toBase: 2)); //linha para testes
-            PaginaInicial.buffer[0] = buffer[0];
-
-            //Quando o pacote for do tipo data request, termos que adequar o tamanho do pacote
-
-            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
-            {
-                FileInfo fileInfo = new FileInfo(saveFileDialog1.FileName);
-                string path = fileInfo.ToString();
-
-                // seta variável que vai de 1 a 2024
-                int n = 1;
-                int m = 2024;
-                string delimiter = "\t ";
-
-                // Create a file to write to
-                string createText = n.ToString() + delimiter + m.ToString() + Environment.NewLine;
-                File.WriteAllText(path, createText);
-                n++;
-                m--;
-
-                // Parte de loop que adiciona os outros número no arquivo
-                while (n <= 2024)
-                {
-                    string appendText = n.ToString() + delimiter + m.ToString() + Environment.NewLine;
-                    File.AppendAllText(path, appendText);
-                    n++;
-                    m--;
-                }
             }
         }
 
-        private void desliga_Click(object sender, EventArgs e)
-        {
-            inversor = false;
-            //Habilita botões "Liga", "Voltar" e "Finalizar"
-            buttonLiga.Enabled = true;
-            buttonVoltar.Enabled = true;
-            buttonFinalizar.Enabled = true;
-            //Desabilita botões "Desliga" e "Aquisição"
-            buttonDesliga.Enabled = false;
-            buttonAquisicao.Enabled = false;
-
-            //-----Atualização de informações do pacote: Desliga Inversor-----//
-
-            // Byte [2:1] - Inversor enable pin (desligado)
-            Byte2 = Byte2 & 0b_1111_1110;
-
-            buffer[1] = Convert.ToByte(Byte2);
-            
-            PaginaInicial.buffer[1] = buffer[1];
-
-        }
-
-        private void finalizar_Click(object sender, EventArgs e)
-        {
-            this.Close();
-            parent.Enabled = true;
-            // É importante limpar o byte antes de fechar tela?
-        }
-
-        private void close_Click(object sender, FormClosingEventArgs e)
-        {
-            if (inversor == true)
-            {
-                MessageBox.Show("Erro: Desligue o inversor antes de fechar tela.");
-                e.Cancel = true;
-            }
-            else
-            {
-                parent.Enabled = true;
-            }
-        }
-
+        /* Função 1.2 -  */
         private void PacketAssemble_T1()
         {
             uint ARR = 0;
@@ -252,7 +130,7 @@ namespace interfaceKitDidatico
             //----------Definições Byte [2]----------//
 
             //Byte [2:1] - Inversor enable pin
-            Byte2 = 0b_0000_0000; 
+            Byte2 = 0b_0000_0000;
 
             //Byte [2:2] - Request foundation update (0: não houve mudança no parâmetro | 1: houve mudnaça)
             if (auxNivelPWM != NivelPWM.Text)
@@ -368,5 +246,136 @@ namespace interfaceKitDidatico
             auxPulsosCiclo = PulsosCiclo.Text;
         }
 
+    //[BLOCO 2 - Execução]//
+
+        /* Função 2.1 -  Volta a seleção de dados*/
+        private void voltar_Click(object sender, EventArgs e)
+        {
+            //Habilita "Seleção de Dados" e desabilita "Execução"
+            groupBox1.Enabled = true;
+            groupBox2.Enabled = false;
+        }
+
+        /* Função 2.2 -  Liga o inversor*/
+        private void liga_Click(object sender, EventArgs e)
+        {
+            inversor = true;
+            //Habilita botões "Desliga" e "Aquisição"
+            buttonDesliga.Enabled = true;
+            buttonAquisicao.Enabled = true;
+            //Desabilita botões "Liga", "Voltar" e "Finalizar"
+            buttonLiga.Enabled = false;
+            buttonVoltar.Enabled = false;
+            buttonFinalizar.Enabled = false;
+
+        //-----Atualização de informações do pacote: Liga Inversor-----//
+
+            // Byte [2:1] - Inversor enable pin (ligado)
+            Byte2 = Byte2 | 1;
+
+            //Byte [2:2] - Request foundation update
+            Byte2 = Byte2 | (0 << 1);
+
+            //Byte [2:8] - Request PWM counter configuration update
+            Byte2 = Byte2 | (0 << 7);
+
+            //Byte [7:1] - Request modulation update
+            Byte7 = Byte7 | 0;
+
+        //----------Registro dos bytes no pacote----------//
+
+            buffer[1] = Convert.ToByte(Byte2);
+            buffer[6] = Convert.ToByte(Byte7);
+
+            //Console.WriteLine(Convert.ToString(buffer[2], toBase: 2)); //linha para testes
+            //Console.WriteLine(Convert.ToString(buffer[7], toBase: 2)); //linha para testes
+
+            PaginaInicial.buffer[1] = buffer[1];
+            PaginaInicial.buffer[6] = buffer[6];
+        }
+
+        /* Função 2.3 -  Aquisição de dados*/
+        private void aquisicao_Click(object sender, EventArgs e)
+        {
+            //-----Atualização de informações do pacote: Pede aquisição-----//
+
+            //Byte [1:1] - Packet type (0: Command / 1: Data request)
+            Byte1 = Byte1 | 1;
+
+            buffer[0] = Convert.ToByte(Byte1);
+            //Console.WriteLine(Convert.ToString(buffer[1], toBase: 2)); //linha para testes
+            PaginaInicial.buffer[0] = buffer[0];
+
+            //Quando o pacote for do tipo data request, termos que adequar o tamanho do pacote
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                FileInfo fileInfo = new FileInfo(saveFileDialog1.FileName);
+                string path = fileInfo.ToString();
+
+                // seta variável que vai de 1 a 2024
+                int n = 1;
+                int m = 2024;
+                string delimiter = "\t ";
+
+                // Create a file to write to
+                string createText = n.ToString() + delimiter + m.ToString() + Environment.NewLine;
+                File.WriteAllText(path, createText);
+                n++;
+                m--;
+
+                // Parte de loop que adiciona os outros número no arquivo
+                while (n <= 2024)
+                {
+                    string appendText = n.ToString() + delimiter + m.ToString() + Environment.NewLine;
+                    File.AppendAllText(path, appendText);
+                    n++;
+                    m--;
+                }
+            }
+        }
+
+        /* Função 2.4 - Desliga o inversor*/
+        private void desliga_Click(object sender, EventArgs e)
+        {
+            inversor = false;
+            //Habilita botões "Liga", "Voltar" e "Finalizar"
+            buttonLiga.Enabled = true;
+            buttonVoltar.Enabled = true;
+            buttonFinalizar.Enabled = true;
+            //Desabilita botões "Desliga" e "Aquisição"
+            buttonDesliga.Enabled = false;
+            buttonAquisicao.Enabled = false;
+
+            //-----Atualização de informações do pacote: Desliga Inversor-----//
+
+            // Byte [2:1] - Inversor enable pin (desligado)
+            Byte2 = Byte2 & 0b_1111_1110;
+
+            buffer[1] = Convert.ToByte(Byte2);
+            
+            PaginaInicial.buffer[1] = buffer[1];
+        }
+
+        /* Função 2.5 - Finaliza o experimento*/
+        private void finalizar_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            parent.Enabled = true;
+            // É importante limpar o byte antes de fechar tela?
+        }
+
+        /* Função 2.6 - Fecha o experimento*/
+        private void close_Click(object sender, FormClosingEventArgs e)
+        {
+            if (inversor == true)
+            {
+                MessageBox.Show("Erro: Desligue o inversor antes de fechar tela.");
+                e.Cancel = true;
+            }
+            else
+            {
+                parent.Enabled = true;
+            }
+        }
     }
 }

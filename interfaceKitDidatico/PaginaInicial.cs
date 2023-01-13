@@ -19,16 +19,14 @@ namespace interfaceKitDidatico
         public static byte[] buffer3 = new byte[4101]; //buffer para aquisição de dados
         int tamanho_pacote_enviado = 32;
         int tamanho_pacote_recebido = 10;
+        public static int answer_type; //Variáveis auxiliares para recebimento de dados
 
         /*Variáveis auxiliares de verificação e tratamento de erros*/
         int contador = 0; //Contagem do procedimento de comunicação
-        bool alerta_aberto = false; //Auxiliar para erro de desconexão da placa
-        bool erro_dados = false; 
-        string tela_escolhida;
+        bool aux_erro3 = false; //Auxiliar para erro de dados inconsistentes
+        bool aux_erro4 = false; //Auxiliar para erro de desconexão da placa
 
-        /*Variáveis auxiliares para recebimento de dados*/
-        public static int answer_type;
-
+        /*Inicialização da tela inicial*/
         public PaginaInicial()
         {
             InitializeComponent();
@@ -36,7 +34,7 @@ namespace interfaceKitDidatico
 
     //[BLOCO 1 - COMUNICAÇÃO]//
 
-        /* Bloco Comunicação - Função 1.1 - Seleção e abertuda da porta serial */
+        /* Função 1.1 - Seleção e abertuda da porta serial */
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             //Fecha porta serial se estiver aberta 
@@ -44,7 +42,7 @@ namespace interfaceKitDidatico
                 serialPort1.Close();
             }
 
-            //Determina qual porta COM será usada, de acordo com o que foi selecionado pelo usuário
+            //Determina porta COM usada, de acordo com a sxeleção do usuário
             serialPort1.PortName = comboBox_porta.Text;
 
             try 
@@ -57,7 +55,7 @@ namespace interfaceKitDidatico
             } 
         }
 
-        /* Bloco Comunicação - Função 1.2 - Início da verificação de comunicação*/
+        /* Função 1.2 - Início da verificação de comunicação*/
         private void iniciarVerificacao_Click(object sender, EventArgs e)
         {
             textBox_status.Text = "Verificando"; //Atualiza texto de status da comunicação
@@ -71,7 +69,7 @@ namespace interfaceKitDidatico
                     comunicacao(); //Chama função de teste comunicação
                     retry++;
 
-                    if (erro_dados == false) break; //Caso verificação não tiver erros, quebra repetição
+                    if (aux_erro3 == false) break; //Caso verificação não tiver erros, quebra repetição
                 }
             }
             catch
@@ -83,7 +81,7 @@ namespace interfaceKitDidatico
             //Consolidação da verificação de comunicação 
             if (contador==10)
             {
-                if (erro_dados == false)
+                if (aux_erro3 == false)
                 {
                     //Conjunto de ações realizadas após sucesso da verificação de comunicação
                     groupBox_comunicacao.Enabled = false;
@@ -95,17 +93,18 @@ namespace interfaceKitDidatico
                 else
                 {
                     ErrorHandler(3); // 3 --> Erro de dados inconsistentes
-                    erro_dados = false;
+                    aux_erro3 = false;
                 }
                 contador = 0;
             }
         }
 
-        /* Bloco Comunicação - Função 1.3 - Teste de comunicação */
+        /* Função 1.3 - Teste de comunicação */
         public void comunicacao()
         {
-            erro_dados = false;
             int i;
+            aux_erro3 = false;
+
             //Repete procedimento de envio e recebimento 10 vezes
             for (i = 0; i < 10; i++)
             {
@@ -130,15 +129,15 @@ namespace interfaceKitDidatico
                     //Se algum dado for incosistente, indica o erro de dados
                     if (buffer2[j] != 4)
                     {
-                        erro_dados = true;
+                        aux_erro3 = true;
                     }
-                    else erro_dados = false;
+                    else aux_erro3 = false;
                 }
                 contador++;
             }
         }
 
-        /* Bloco Comunicação - Função 1.4 - Timer (Se repete durante todo uso do aplicativo após ser ativada) */
+        /* Função 1.4 - Timer (Se repete durante todo uso do aplicativo após ser ativada) */
         private void timer1_Tick(object sender, EventArgs e)
         {
             //Envio de dados para o ARM
@@ -170,7 +169,7 @@ namespace interfaceKitDidatico
 
         }
 
-        /* Bloco Comunicação - Função 1.5 - Tratamento de erros */
+        /* Função 1.5 - Tratamento de erros */
         private void ErrorHandler(int error_type)
         {
             // 1 --> Erro de escolha de porta serial não utilizada
@@ -196,9 +195,9 @@ namespace interfaceKitDidatico
             // 4 --> Erro de desconexão da placa
             else if (error_type == 4)
             {
-                if (!alerta_aberto)
+                if (!aux_erro4)
                 {
-                    alerta_aberto = true;
+                    aux_erro4 = true;
                     DialogResult result = MessageBox.Show("ATENÇÃO: Se o INVERSOR estiver LIGADO, desligue-o imediatamente!!! Após isso siga os passos: \n \n 1.Conecte novamente a placa ao computador \n \n 2.Pressione o botão preto (reset) da placa Discovery (microcontrolador). Caso tenha dúvidas, peça ajuda de um monitor ou do professor. \n \n 3.Abra o aplicativo da IHM novamente, e siga o procedimento de conexão. \n \n \n Você conseguiu desligar o inversor?", "Erro: PORTA DESCONECTADA", MessageBoxButtons.YesNo);
                     if (result == DialogResult.Yes)
                     {
@@ -206,7 +205,7 @@ namespace interfaceKitDidatico
                     }
                     else if (result == DialogResult.No)
                     {
-                        alerta_aberto = false;
+                        aux_erro4 = false;
                         result = 0;
                     }
 
@@ -214,25 +213,24 @@ namespace interfaceKitDidatico
             }
         }
 
-    //[BLOCO 2 - LÓGICA DE TELAS]//
+    //[BLOCO 2 - SELEÇÃO DE EXPERIMENTO]//
 
 
-        /* Bloco Lógica de Telas - Função 2.1 - Escolha da tela/experimento */
+        /* Função 2.1 - Escolha da tela/experimento */
         private void escolhaExperimento(object sender, EventArgs e)
         {
             //Quando usuário selecionar algum experimento, botão de "Avançar" é desbloqueado
             if (comboBox_tela != null) button_avancar.Enabled = true;
             else button_avancar.Enabled = false;
-
-            MessageBox.Show("teste");
         }
 
 
-        /* Bloco Lógica de Telas - Função 2.2 - Abertura da tela/experimento */
+        /* Função 2.2 - Abertura da tela/experimento */
         private void next_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(comboBox_tela.Text) == false)
             {
+                string tela_escolhida;
                 tela_escolhida = comboBox_tela.Text; //Registra tela escolhida
 
                 //Abertura de telas

@@ -30,6 +30,7 @@
         {
             System.Windows.Forms.TextBox titulo_T2;
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.IndiceMod = new System.Windows.Forms.ComboBox();
             this.PulsosCiclo = new System.Windows.Forms.ComboBox();
             this.textBox4 = new System.Windows.Forms.TextBox();
             this.textBox3 = new System.Windows.Forms.TextBox();
@@ -45,7 +46,6 @@
             this.buttonAquisicao = new System.Windows.Forms.Button();
             this.buttonFinalizar = new System.Windows.Forms.Button();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
-            this.IndiceMod = new System.Windows.Forms.ComboBox();
             titulo_T2 = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -84,6 +84,24 @@
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Seleção de Dados";
+            // 
+            // IndiceMod
+            // 
+            this.IndiceMod.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.IndiceMod.FormattingEnabled = true;
+            this.IndiceMod.Items.AddRange(new object[] {
+            "0",
+            "25",
+            "50",
+            "75",
+            "100",
+            "115",
+            "130",
+            "150"});
+            this.IndiceMod.Location = new System.Drawing.Point(202, 50);
+            this.IndiceMod.Name = "IndiceMod";
+            this.IndiceMod.Size = new System.Drawing.Size(155, 23);
+            this.IndiceMod.TabIndex = 8;
             // 
             // PulsosCiclo
             // 
@@ -262,24 +280,6 @@
             this.saveFileDialog1.Filter = "Arquivos TXT|*.txt|Todos os arquivos|*.*";
             this.saveFileDialog1.Title = "Aquisição de Dados do Experimento";
             // 
-            // IndiceMod
-            // 
-            this.IndiceMod.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.IndiceMod.FormattingEnabled = true;
-            this.IndiceMod.Items.AddRange(new object[] {
-            "0",
-            "25",
-            "50",
-            "75",
-            "100",
-            "115",
-            "130",
-            "150"});
-            this.IndiceMod.Location = new System.Drawing.Point(202, 50);
-            this.IndiceMod.Name = "IndiceMod";
-            this.IndiceMod.Size = new System.Drawing.Size(155, 23);
-            this.IndiceMod.TabIndex = 8;
-            // 
             // Tela2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -290,7 +290,7 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(titulo_T2);
             this.Name = "Tela2";
-            this.Text = "Tela2";
+            this.Text = "Tela 2";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
