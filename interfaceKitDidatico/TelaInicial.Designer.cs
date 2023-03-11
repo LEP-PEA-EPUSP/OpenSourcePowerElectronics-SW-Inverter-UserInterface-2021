@@ -1,6 +1,6 @@
 ﻿namespace interfaceKitDidatico
 {
-    partial class PaginaInicial
+    partial class TelaInicial
     {
         /// <summary>
         /// Required designer variable.
@@ -212,7 +212,7 @@
             this.groupBox_experimento.TabStop = false;
             this.groupBox_experimento.Text = "Experimento";
             // 
-            // PaginaInicial
+            // TelaInicial
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -220,9 +220,9 @@
             this.Controls.Add(this.groupBox_experimento);
             this.Controls.Add(this.groupBox_comunicacao);
             this.Controls.Add(textBox_titulo);
-            this.Name = "PaginaInicial";
+            this.Name = "TelaInicial";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Página Inicial";
+            this.Text = "Tela Inicial";
             this.groupBox_comunicacao.ResumeLayout(false);
             this.groupBox_comunicacao.PerformLayout();
             this.groupBox_experimento.ResumeLayout(false);

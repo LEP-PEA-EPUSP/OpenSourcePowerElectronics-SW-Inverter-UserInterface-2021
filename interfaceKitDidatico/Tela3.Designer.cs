@@ -30,6 +30,8 @@
         {
             System.Windows.Forms.TextBox titulo_T2;
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.FrequenciaMod = new System.Windows.Forms.ComboBox();
+            this.textBox2 = new System.Windows.Forms.TextBox();
             this.DutyCycle = new System.Windows.Forms.MaskedTextBox();
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.buttonAvancar = new System.Windows.Forms.Button();
@@ -40,8 +42,6 @@
             this.buttonAquisicao = new System.Windows.Forms.Button();
             this.buttonFinalizar = new System.Windows.Forms.Button();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
-            this.FrequenciaMod = new System.Windows.Forms.ComboBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
             titulo_T2 = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -76,6 +76,32 @@
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Seleção de Dados";
+            // 
+            // FrequenciaMod
+            // 
+            this.FrequenciaMod.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.FrequenciaMod.FormattingEnabled = true;
+            this.FrequenciaMod.Items.AddRange(new object[] {
+            "2000",
+            "4000",
+            "6000",
+            "8000"});
+            this.FrequenciaMod.Location = new System.Drawing.Point(64, 68);
+            this.FrequenciaMod.Name = "FrequenciaMod";
+            this.FrequenciaMod.Size = new System.Drawing.Size(112, 23);
+            this.FrequenciaMod.TabIndex = 7;
+            // 
+            // textBox2
+            // 
+            this.textBox2.BackColor = System.Drawing.SystemColors.MenuBar;
+            this.textBox2.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox2.Location = new System.Drawing.Point(64, 32);
+            this.textBox2.Multiline = true;
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(112, 35);
+            this.textBox2.TabIndex = 6;
+            this.textBox2.Text = "Frequência da moduladora (Hz):";
             // 
             // DutyCycle
             // 
@@ -186,32 +212,6 @@
             this.saveFileDialog1.DefaultExt = "txt";
             this.saveFileDialog1.Filter = "Arquivos TXT|*.txt|Todos os arquivos|*.*";
             this.saveFileDialog1.Title = "Aquisição de Dados do Experimento";
-            // 
-            // FrequenciaMod
-            // 
-            this.FrequenciaMod.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.FrequenciaMod.FormattingEnabled = true;
-            this.FrequenciaMod.Items.AddRange(new object[] {
-            "2000",
-            "4000",
-            "6000",
-            "8000"});
-            this.FrequenciaMod.Location = new System.Drawing.Point(64, 68);
-            this.FrequenciaMod.Name = "FrequenciaMod";
-            this.FrequenciaMod.Size = new System.Drawing.Size(112, 23);
-            this.FrequenciaMod.TabIndex = 7;
-            // 
-            // textBox2
-            // 
-            this.textBox2.BackColor = System.Drawing.SystemColors.MenuBar;
-            this.textBox2.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox2.Location = new System.Drawing.Point(64, 32);
-            this.textBox2.Multiline = true;
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(112, 35);
-            this.textBox2.TabIndex = 6;
-            this.textBox2.Text = "Frequência da moduladora (Hz):";
             // 
             // Tela3
             // 

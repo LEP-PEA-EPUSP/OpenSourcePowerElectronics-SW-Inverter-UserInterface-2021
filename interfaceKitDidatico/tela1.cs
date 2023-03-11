@@ -1,13 +1,18 @@
-﻿using System;
+﻿// [TELA 1 - CONVERSOR MONOFÁSICO]
+
+/*Bibliotecas*/
+using System;
 using System.IO;
 using System.Windows.Forms;
 
+/*Inicialização do aplicativo*/
 namespace interfaceKitDidatico
 {
+    /*Definição da Tela 1*/
     public partial class Tela1 : Form
     {
         /*Variáveis gerais*/
-        private PaginaInicial parent;
+        private TelaInicial parent;
         public int tamanho_palavra;
         bool inversor = false;
 
@@ -43,17 +48,17 @@ namespace interfaceKitDidatico
         int answer_pwmCounterUpdate;
         int answer_dacUpdate;
 
-        /*Inicialização da tela 1*/
-        public Tela1(PaginaInicial parent, int tamanho_palavra)
+        //Inicialização da Tela 1
+        public Tela1(TelaInicial parent, int tamanho_palavra)
         {
             this.parent = parent;
             InitializeComponent();
             this.tamanho_palavra = tamanho_palavra;
         }
 
-    //[BLOCO 1 - PACOTE DE DADOS]//
+    //[TELA 1 (EXPERIMENTO) - BLOCO 1 - PACOTE DE DADOS]//
 
-        /* Função 1.1 -  */
+        /* Função 1.1 - Seleção de parâmetros */
         private void next_Click(object sender, EventArgs e)
         {
             //Verifica se os dados não foram selecionados
@@ -70,7 +75,7 @@ namespace interfaceKitDidatico
                 groupBox2.Enabled = true; //Habilita "Execução" (botão "Liga" habilitado)
                 groupBox1.Enabled = false; //Desabilita "Seleção de Dados"
 
-                buffer2 = PaginaInicial.buffer2;
+                buffer2 = TelaInicial.buffer2;
                 //Console.WriteLine("Pacote recebido:");
                 //Console.WriteLine(Convert.ToString(buffer2[0], toBase: 2));
                 //Console.WriteLine(Convert.ToString(buffer2[1], toBase: 2));
@@ -86,7 +91,7 @@ namespace interfaceKitDidatico
             }
         }
 
-        /* Função 1.2 -  */
+        /* Função 1.2 - Atualização dos pacotes de dados */
         private void PacketAssemble_T1()
         {
             uint ARR = 0;
@@ -237,7 +242,7 @@ namespace interfaceKitDidatico
             //Console.WriteLine(Convert.ToString(buffer[7], toBase: 2));
 
             //----------Envio do buffer para Pagina Inicial----------//
-            PaginaInicial.buffer = buffer;
+            TelaInicial.buffer = buffer;
 
             //Registro de parâmetros
             auxNivelPWM = NivelPWM.Text;
@@ -246,7 +251,7 @@ namespace interfaceKitDidatico
             auxPulsosCiclo = PulsosCiclo.Text;
         }
 
-    //[BLOCO 2 - Execução]//
+    //[TELA 1 (EXPERIMENTO) - BLOCO 2 - EXECUÇÃO]//
 
         /* Função 2.1 -  Volta a seleção de dados*/
         private void voltar_Click(object sender, EventArgs e)
@@ -282,16 +287,15 @@ namespace interfaceKitDidatico
             //Byte [7:1] - Request modulation update
             Byte7 = Byte7 | 0;
 
-        //----------Registro dos bytes no pacote----------//
-
+            //----------Registro dos bytes no pacote----------//
             buffer[1] = Convert.ToByte(Byte2);
             buffer[6] = Convert.ToByte(Byte7);
 
             //Console.WriteLine(Convert.ToString(buffer[2], toBase: 2)); //linha para testes
             //Console.WriteLine(Convert.ToString(buffer[7], toBase: 2)); //linha para testes
 
-            PaginaInicial.buffer[1] = buffer[1];
-            PaginaInicial.buffer[6] = buffer[6];
+            TelaInicial.buffer[1] = buffer[1];
+            TelaInicial.buffer[6] = buffer[6];
         }
 
         /* Função 2.3 -  Aquisição de dados*/
@@ -304,7 +308,7 @@ namespace interfaceKitDidatico
 
             buffer[0] = Convert.ToByte(Byte1);
             //Console.WriteLine(Convert.ToString(buffer[1], toBase: 2)); //linha para testes
-            PaginaInicial.buffer[0] = buffer[0];
+            TelaInicial.buffer[0] = buffer[0];
 
             //Quando o pacote for do tipo data request, termos que adequar o tamanho do pacote
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)
@@ -353,7 +357,7 @@ namespace interfaceKitDidatico
 
             buffer[1] = Convert.ToByte(Byte2);
             
-            PaginaInicial.buffer[1] = buffer[1];
+            TelaInicial.buffer[1] = buffer[1];
         }
 
         /* Função 2.5 - Finaliza o experimento*/

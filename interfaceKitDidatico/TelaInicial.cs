@@ -1,4 +1,7 @@
-﻿using System;
+﻿// [TELA INICIAL]
+
+/*Bibliotecas*/
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -9,9 +12,11 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 
+/*Inicialização do aplicativo*/
 namespace interfaceKitDidatico
 {
-    public partial class PaginaInicial : Form
+    /*Definição da tela inicial*/
+    public partial class TelaInicial : Form
     {
         /*Variáveis para pacotes de dados*/
         public static byte[] buffer = new byte[32]; //buffer de envio de dados
@@ -27,14 +32,14 @@ namespace interfaceKitDidatico
         bool aux_erro4 = false; //Auxiliar para erro de desconexão da placa
 
         /*Inicialização da tela inicial*/
-        public PaginaInicial()
+        public TelaInicial()
         {
             InitializeComponent();
         }
 
-    //[BLOCO 1 - COMUNICAÇÃO]//
+    //[TELA INICIAL - BLOCO 1 - COMUNICAÇÃO]//
 
-        /* Função 1.1 - Seleção e abertuda da porta serial */
+        /*Função 1.1 - Seleção e abertura da porta serial*/
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             //Fecha porta serial se estiver aberta 
@@ -42,7 +47,7 @@ namespace interfaceKitDidatico
                 serialPort1.Close();
             }
 
-            //Determina porta COM usada, de acordo com a sxeleção do usuário
+            //Determina porta COM usada, de acordo com a seleção do usuário
             serialPort1.PortName = comboBox_porta.Text;
 
             try 
@@ -213,10 +218,10 @@ namespace interfaceKitDidatico
             }
         }
 
-    //[BLOCO 2 - SELEÇÃO DE EXPERIMENTO]//
+    //[TELA INICIAL - BLOCO 2 - ESCOLHA DE EXPERIMENTO]//
 
 
-        /* Função 2.1 - Escolha da tela/experimento */
+        /* Função 2.1 - Seleção da tela de experimento */
         private void escolhaExperimento(object sender, EventArgs e)
         {
             //Quando usuário selecionar algum experimento, botão de "Avançar" é desbloqueado
@@ -225,7 +230,7 @@ namespace interfaceKitDidatico
         }
 
 
-        /* Função 2.2 - Abertura da tela/experimento */
+        /* Função 2.2 - Abertura da tela de experimento */
         private void next_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(comboBox_tela.Text) == false)
